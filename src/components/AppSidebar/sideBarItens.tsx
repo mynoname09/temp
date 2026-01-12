@@ -1,4 +1,4 @@
-import { CircleQuestionMarkIcon, HomeIcon } from 'lucide-react';
+import { CircleQuestionMarkIcon, HomeIcon, UsersRoundIcon } from 'lucide-react';
 import { SidebarMenuButton, SidebarMenuItem } from '@ui/sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -11,6 +11,7 @@ interface SidebarItem {
 
 const items: SidebarItem[] = [
   { title: 'Home', url: '/', icon: <HomeIcon /> },
+  { title: 'Governadores', url: '/governador', icon: <UsersRoundIcon /> },
   { title: 'Sobre', url: '/sobre', icon: <CircleQuestionMarkIcon /> },
 ];
 
