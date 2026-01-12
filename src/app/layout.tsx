@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
+import Header from '@/components/Header';
+import { Providers } from './providers';
+import { cookies } from 'next/headers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,13 +35,17 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider defaultOpen={defaultOpen}>
-          <AppSidebar />
-          <main className='w-full'>
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+        <Providers defaultOpen={defaultOpen}>
+          <div className='min-h-screen flex w-full bg-linear-to-br from-background to-secondary'>
+            <AppSidebar />
+
+            <div className='flex-1 flex flex-col'>
+              <Header />
+
+              <main className='flex-1 p-6'>{children}</main>
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   );
