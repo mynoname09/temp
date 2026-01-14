@@ -31,7 +31,10 @@
       ],
       "@ui/*": [
         "./src/components/ui/*"
-      ]
+      ],
+      "@actions/*": [
+        "./src/app/actions/*"
+      ],
     }
   },
   "include": [
