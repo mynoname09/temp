@@ -11,11 +11,11 @@ export default function MarkdownView({ markdown }: MarkdownViewProps) {
   return (
     <div
       className={cn(
-        'prose prose-slate',
+        'prose dark:prose-invert',
         'w-full max-w-none',
         'overflow-hidden',
-        'prose-a:text-blue-500',
-        'prose-a:hover:text-blue-700',
+        'prose-a:text-highlight',
+        'prose-a:hover:text-highlight-hover',
         'prose-a:hover:underline',
         'prose-img:mx-auto',
         'lg:prose-lg',

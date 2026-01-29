@@ -18,7 +18,7 @@ export default function ErrorMessage({
       {pageTitle && <title>{pageTitle}</title>}
       <div
         className={cn(
-          'min-h-80 bg-slate-900 text-slate-100',
+          'min-h-80 bg-secondary text-secondary-foreground',
           'mb-16 p-8 rounded-xl',
           'flex items-center justify-center',
           'text-center',

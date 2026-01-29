@@ -29,7 +29,7 @@ export default function InputPesquisa({
   return (
     <div
       className={cn(
-        'relative bg-white border border-gray-200 rounded-2xl shadow-sm hover:border-red-300 hover:shadow-md transition-all z-20',
+        'relative bg-card border border-border rounded-2xl shadow-sm hover:border-highlight hover:shadow-md transition-all z-20',
         containerClassName,
       )}
     >
@@ -50,12 +50,12 @@ export default function InputPesquisa({
             <button
               type='button'
               onClick={onClear}
-              className='p-1 hover:bg-gray-100 rounded-full text-gray-400 transition-colors cursor-pointer'
+              className='p-1 hover:bg-muted rounded-full text-muted-foreground transition-colors cursor-pointer'
               aria-label='Limpar pesquisa'
             >
               <XIcon className='w-4 h-4' />
             </button>
-            <div className='h-5 w-px bg-gray-200 mx-2' />
+            <div className='h-5 w-px bg-border mx-2' />
           </>
         )}
 
@@ -66,7 +66,7 @@ export default function InputPesquisa({
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <div className='w-5 h-5 border-2 border-gray-200 border-t-red-900 rounded-full animate-spin mr-3 shrink-0' />
+            <div className='w-5 h-5 border-2 border-muted border-t-highlight rounded-full animate-spin mr-3 shrink-0' />
           ) : (
             <SearchIcon className='w-5 h-5 text-muted-foreground mr-3 shrink-0' />
           )}

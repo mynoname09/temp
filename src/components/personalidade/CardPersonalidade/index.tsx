@@ -20,11 +20,11 @@ export default function CardPersonalidade({
   return (
     <div
       key={personalidade.id}
-      className='group cursor-pointer bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105'
+      className='group cursor-pointer bg-card rounded-lg shadow-sm border border-border overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105'
       onClick={() => setModalIsOpen(true)}
     >
       <div className='aspect-square overflow-hidden'>
-        <div className='w-full h-full bg-gray-200 flex items-center justify-center'>
+        <div className='w-full h-full bg-muted flex items-center justify-center'>
           {personalidade.url_imagem_perfil ? (
             <Image
               width={300}
@@ -34,13 +34,13 @@ export default function CardPersonalidade({
               className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
             />
           ) : (
-            <BookOpenIcon className='w-12 h-12 text-gray-400' />
+            <BookOpenIcon className='w-12 h-12 text-muted-foreground' />
           )}
         </div>
       </div>
       <div className='p-4'>
         <>
-          <h3 className='font-bold text-gray-900 mb-1 text-lg'>
+          <h3 className='font-bold text-card-foreground mb-1 text-lg'>
             {`${personalidade.nome} ${personalidade.sobrenome}`}
           </h3>
           {personalidade.apelido && (
@@ -50,12 +50,12 @@ export default function CardPersonalidade({
           )}
         </>
         <span
-          className='text-lg font-semibold text-red-900 line-clamp-2'
+          className='text-lg font-semibold text-highlight line-clamp-2'
           title={personalidade.nome_tags_de_personalidade?.join(', ')}
         >
           {personalidade.nome_tags_de_personalidade?.join(', ')}
         </span>
-        <div className='flex items-center gap-1 text-xs text-gray-500'>
+        <div className='flex items-center gap-1 text-xs text-muted-foreground'>
           <MapPinIcon className='w-3 h-3' />
           <span>{personalidade.naturalidade?.split(',')[0]}</span>
         </div>
