@@ -5,7 +5,7 @@ export default async function WrapperListaPersonalidades() {
   const tagsDePersonalidadeFromApi = await getListaTagsDePersonalidade();
 
   return (
-    <div className='min-h-screen bg-background flex flex-col'>
+    <div className='min-h-screen flex flex-col'>
       <main className='flex-1 w-full'>
         <section className='py-20 pb-2 px-1'>
           <div className='container mx-auto text-center'>
