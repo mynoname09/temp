@@ -1,6 +1,6 @@
 'use server';
 
-import { apiAcervoPublicoFCJA } from '@/utils/api/acervo-publico-FCJA.api';
+import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
 
 export async function createGovAction(governadorData: any) {
   const createGovResponse = await apiAcervoPublicoFCJA.post<any>(

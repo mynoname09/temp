@@ -6,6 +6,7 @@ import { AppSidebar } from '@/components/AppSidebar';
 import Header from '@/components/Header';
 import { Providers } from './providers';
 import { cookies } from 'next/headers';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,7 +33,7 @@ type RootLayoutProps = {
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get('sidebar:state')?.value === 'true';
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
 
   return (
     <html lang='pt-BR'>
@@ -47,6 +48,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               <Header />
 
               <main className='flex-1 p-6'>{children}</main>
+              <Toaster position='bottom-right' richColors />
             </div>
           </div>
         </Providers>

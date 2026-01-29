@@ -1,17 +1,55 @@
-import { CircleQuestionMarkIcon, HomeIcon, UsersRoundIcon } from 'lucide-react';
-import { SidebarMenuButton, SidebarMenuItem } from '@ui/sidebar';
+import {
+  ChevronDownIcon,
+  CircleQuestionMarkIcon,
+  HomeIcon,
+  UsersRoundIcon,
+} from 'lucide-react';
+import {
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+} from '@ui/sidebar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@radix-ui/react-collapsible';
 
 interface SidebarItem {
   title: string;
   url: string;
   icon: React.ReactNode;
+  colapiside?: {
+    items: SidebarItem[];
+  };
 }
 
 const items: SidebarItem[] = [
   { title: 'Home', url: '/', icon: <HomeIcon /> },
   { title: 'Governadores', url: '/governador', icon: <UsersRoundIcon /> },
+  {
+    title: 'Personalidades',
+    url: '/personalidade',
+    icon: <UsersRoundIcon />,
+    colapiside: {
+      items: [
+        {
+          title: 'Listar Personalidades',
+          url: '/personalidade',
+          icon: <UsersRoundIcon />,
+        },
+        {
+          title: 'Adicionar Personalidade',
+          url: '/personalidade/new',
+          icon: <UsersRoundIcon />,
+        },
+      ],
+    },
+  },
   { title: 'Sobre', url: '/sobre', icon: <CircleQuestionMarkIcon /> },
 ];
 
@@ -27,23 +65,65 @@ function isActivePath(pathname: string, url: string) {
 export default function SidebarItems({ pathname }: SidebarItemsProps) {
   return (
     <>
-      {items.map(item => (
-        <SidebarMenuItem key={`sidebar-item-${item.title}`}>
-          <SidebarMenuButton asChild>
-            <Link
-              href={item.url}
-              className={cn(
-                isActivePath(pathname, item.url)
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-foreground hover:bg-accent hover:text-accent-foreground',
-              )}
+      {items.map(item => {
+        const hasSubItems = item.colapiside && item.colapiside.items.length > 0;
+        const isParentActive = isActivePath(pathname, item.url);
+
+        if (hasSubItems) {
+          return (
+            <Collapsible
+              key={item.title}
+              asChild
+              defaultOpen={isParentActive}
+              className='group/collapsible'
             >
-              {item.icon}
-              <span>{item.title}</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      ))}
+              <SidebarMenuItem className='cursor-pointer'>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    className='cursor-pointer'
+                  >
+                    {item.icon}
+                    <span>{item.title}</span>
+                    <ChevronDownIcon className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180' />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {item.colapiside!.items.map(subItem => (
+                      <SidebarMenuSubItem key={subItem.url}>
+                        <SidebarMenuSubButton
+                          asChild
+                          isActive={isActivePath(pathname, subItem.url)}
+                        >
+                          <Link href={subItem.url}>
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          );
+        }
+
+        return (
+          <SidebarMenuItem key={item.url}>
+            <SidebarMenuButton
+              asChild
+              tooltip={item.title}
+              isActive={isParentActive}
+            >
+              <Link href={item.url}>
+                {item.icon}
+                <span>{item.title}</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        );
+      })}
     </>
   );
 }

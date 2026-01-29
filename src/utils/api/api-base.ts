@@ -46,14 +46,21 @@ export const requestHandler = async <T>(
     }
     return response;
   } catch (error: unknown) {
+    // Verifica se é cancelamento do Axios
+    // Se for, relança o erro original para que quem chamou possa tratar (ignorar)
+    // sem logar como erro no console e sem transformar em ApiError 500.
+    if (axios.isCancel(error)) {
+      throw error;
+    }
+
     console.error('API Error Original:', error);
 
     if (axios.isAxiosError(error) && error.response) {
       const message = error.response.data?.message || error.message;
-      throw new ApiError(message, error.response.status);
+      throw new ApiError(message, error.response.status, error);
     }
 
     const errorMessage = error instanceof Error ? error.message : String(error);
-    throw new ApiError(errorMessage, 500);
+    throw new ApiError(errorMessage, 500, error);
   }
 };
