@@ -5,26 +5,24 @@ export default async function WrapperListaPersonalidades() {
   const tagsDePersonalidadeFromApi = await getListaTagsDePersonalidade();
 
   return (
-    <div className='min-h-screen flex flex-col'>
-      <main className='flex-1 w-full'>
-        <section className='py-20 pb-2 px-1'>
-          <div className='container mx-auto text-center'>
-            <div className='mx-auto text-center'>
-              <h1 className='text-5xl md:text-5xl font-bold  mb-6 text-red-900'>
-                Memória e Protagonismo Paraibano
-              </h1>
-              <p className='text-lg text-muted-foreground'>
-                Artistas, intelectuais e figuras públicas cujas contribuições
-                permanecem vivas na memória do estado.
-              </p>
-            </div>
+    <main className='flex-1 w-full bg-background flex flex-col'>
+      <section className='py-20 pb-2 px-1'>
+        <div className='container mx-auto text-center'>
+          <div className='mx-auto text-center'>
+            <h1 className='text-5xl md:text-5xl font-bold  mb-6 text-red-900'>
+              Memória e Protagonismo Paraibano
+            </h1>
+            <p className='text-lg text-muted-foreground'>
+              Artistas, intelectuais e figuras públicas cujas contribuições
+              permanecem vivas na memória do estado.
+            </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <GerenciadorDeBuscaPersonalidades
-          tagsDisponiveisPesquisa={tagsDePersonalidadeFromApi}
-        />
-      </main>
-    </div>
+      <GerenciadorDeBuscaPersonalidades
+        tagsDisponiveisPesquisa={tagsDePersonalidadeFromApi}
+      />
+    </main>
   );
 }
