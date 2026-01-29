@@ -189,8 +189,9 @@ export function PersonalidadeBaseFields({
                         role='combobox'
                         className={cn(
                           'w-full justify-between h-auto min-h-11 px-3 py-2 border-2 transition-colors',
-                          'hover:bg-accent/50 hover:border-primary/30',
-                          openCombobox && 'border-primary ring-2 ring-primary/20',
+                          'hover:bg-accent/50 hover:border-primary/30 cursor-pointer',
+                          openCombobox &&
+                            'border-primary ring-2 ring-primary/20',
                           !selectedIds.length && 'text-muted-foreground',
                         )}
                       >
@@ -286,7 +287,11 @@ export function PersonalidadeBaseFields({
                                 }}
                                 className={cn(
                                   'flex items-center gap-2 cursor-pointer transition-colors',
-                                  isSelected && 'bg-primary/10',
+                                  'aria-selected:bg-transparent data-[selected=true]:bg-transparent',
+                                  'aria-selected:text-foreground data-[selected=true]:text-foreground',
+                                  'hover:text-accent-foreground!',
+                                  isSelected &&
+                                    'bg-primary/10 hover:bg-primary/15! font-medium',
                                 )}
                               >
                                 <div
@@ -299,14 +304,7 @@ export function PersonalidadeBaseFields({
                                 >
                                   {isSelected && <Check className='h-3 w-3' />}
                                 </div>
-                                <span
-                                  className={cn(
-                                    'flex-1',
-                                    isSelected && 'font-medium',
-                                  )}
-                                >
-                                  {tag.nome}
-                                </span>
+                                <span className='flex-1'>{tag.nome}</span>
                               </CommandItem>
                             );
                           })}
