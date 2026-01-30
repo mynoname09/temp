@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { BaseTagFromApi } from '@/features/tags/tag.schema';
+import { BaseTagFromApi } from '@/features/tags/tag.types';
 
 type ListaFiltrosProps = {
   isVisible: boolean;

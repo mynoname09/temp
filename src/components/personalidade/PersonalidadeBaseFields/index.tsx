@@ -95,7 +95,18 @@ export function PersonalidadeBaseFields({
   };
 
   return (
-    <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+    <div
+      className={cn(
+        // Base (mobile)
+        'grid grid-cols-1 gap-4',
+        // md
+        'md:grid-cols-2 md:gap-5',
+        // lg
+        'lg:gap-6',
+        // 2xl (4K)
+        '2xl:gap-8'
+      )}
+    >
       <FormField
         control={form.control}
         name='nome'
@@ -162,7 +173,7 @@ export function PersonalidadeBaseFields({
       />
 
       {/* Tags de Personalidade */}
-      <div className='col-span-1 md:col-span-2'>
+      <div className={cn('col-span-1', 'md:col-span-2')}>
         <FormField
           control={form.control}
           name='id_tag_personalidade'
@@ -170,7 +181,7 @@ export function PersonalidadeBaseFields({
             const selectedIds = field.value || [];
 
             return (
-              <FormItem className='flex flex-col gap-2'>
+              <FormItem className={cn('flex flex-col gap-2', 'md:gap-3')}>
                 <div className='space-y-1'>
                   <FormLabel className='text-base font-medium'>
                     Tags de Personalidade
@@ -315,7 +326,14 @@ export function PersonalidadeBaseFields({
                 </Popover>
 
                 {selectedIds.length > 0 && (
-                  <div className='rounded-lg border bg-muted/30 p-3 space-y-2'>
+                  <div className={cn(
+                    // Base (mobile)
+                    'rounded-lg border bg-muted/30 p-2.5 space-y-2',
+                    // md
+                    'md:p-3',
+                    // 2xl (4K)
+                    '2xl:p-4'
+                  )}>
                     <p className='text-xs font-medium text-muted-foreground uppercase tracking-wide'>
                       Tags selecionadas ({selectedIds.length})
                     </p>
@@ -394,11 +412,18 @@ export function PersonalidadeBaseFields({
         control={form.control}
         name='resumo_biografico'
         render={({ field }) => (
-          <FormItem className='md:col-span-2'>
+          <FormItem className={cn('col-span-1', 'md:col-span-2')}>
             <RequiredLabel>Resumo Biográfico</RequiredLabel>
             <FormControl>
               <textarea
-                className='w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+                className={cn(
+                  // Base (mobile)
+                  'w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-25 resize-y',
+                  // md
+                  'md:text-base md:min-h-30',
+                  // 2xl (4K)
+                  '2xl:min-h-35'
+                )}
                 rows={4}
                 {...field}
               />
@@ -413,11 +438,18 @@ export function PersonalidadeBaseFields({
         control={form.control}
         name='contribuicao_cultural'
         render={({ field }) => (
-          <FormItem className='md:col-span-2'>
+          <FormItem className={cn('col-span-1', 'md:col-span-2')}>
             <FormLabel>Contribuição Cultural (Opcional)</FormLabel>
             <FormControl>
               <textarea
-                className='w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+                className={cn(
+                  // Base (mobile)
+                  'w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-25 resize-y',
+                  // md
+                  'md:text-base md:min-h-30',
+                  // 2xl (4K)
+                  '2xl:min-h-35'
+                )}
                 rows={4}
                 {...field}
                 value={field.value || ''}
