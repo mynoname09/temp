@@ -38,12 +38,12 @@ const items: SidebarItem[] = [
     colapiside: {
       items: [
         {
-          title: 'Listar Personalidades',
+          title: 'Personalidades cadastradas',
           url: '/personalidade',
           icon: <UsersRoundIcon />,
         },
         {
-          title: 'Adicionar Personalidade',
+          title: 'Adicionar personalidade',
           url: '/personalidade/new',
           icon: <UsersRoundIcon />,
         },
@@ -59,7 +59,7 @@ type SidebarItemsProps = {
 
 function isActivePath(pathname: string, url: string) {
   if (url === '/') return pathname === '/';
-  return pathname === url || pathname.startsWith(`${url}/`);
+  return pathname === url;
 }
 
 export default function SidebarItems({ pathname }: SidebarItemsProps) {
