@@ -1,7 +1,6 @@
 'use client';
 
-import ErrorMessage from '@/components/ErrorMessage';
-import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 interface ErrorProps {
@@ -9,30 +8,30 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+// pode ter o reset como parametro, para tentar resetar o estado da pagina
+export default function ErrorPage({ error, reset }: ErrorProps) {
   useEffect(() => {
     console.error('An unexpected error occurred on the page.', error);
   }, [error]);
 
   return (
-    <ErrorMessage
-      pageTitle='Internal Server Error'
-      contentTitle='500 - Internal Server Error'
-      // nao muito útil
-      content={
-        <>
-          <p>Ocorreu um erro inesperado.</p>
-          <Button
-            className='cursor-pointer'
-            onClick={() => {
-              // console.log('tentou');
-              reset();
-            }}
-          >
-            Try again
-          </Button>
-        </>
-      }
-    />
+    <div className='min-h-screen flex flex-col items-center justify-center text-foreground'>
+      <h1 className='text-4xl font-bold mb-4'>Ocorreu um erro</h1>
+      <p className='text-lg mb-8'>
+        Desculpe, algo deu errado ao carregar a página.
+      </p>
+      <Link
+        href='/'
+        className='px-4 py-2 rounded transition bg-primary text-primary-foreground hover:bg-primary/90'
+      >
+        Voltar para a página inicial
+      </Link>
+      <button
+        onClick={reset}
+        className='mt-4 px-4 py-2  rounded  transition cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90'
+      >
+        Tentar novamente
+      </button>
+    </div>
   );
 }

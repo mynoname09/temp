@@ -1,3 +1,5 @@
+'use client'; // 1. Necessário para usar hooks
+
 import {
   ChevronDownIcon,
   CircleQuestionMarkIcon,
@@ -10,7 +12,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from '@ui/sidebar';
+  useSidebar, // 2. Importe o hook useSidebar
+} from '@ui/sidebar'; // Verifique se o caminho está correto, às vezes é '@/components/ui/sidebar'
 import Link from 'next/link';
 import {
   Collapsible,
@@ -27,6 +30,7 @@ interface SidebarItem {
   };
 }
 
+// ... (definição da constante items permanece igual) ...
 const items: SidebarItem[] = [
   { title: 'Home', url: '/', icon: <HomeIcon /> },
   { title: 'Governadores', url: '/governador', icon: <UsersRoundIcon /> },
@@ -62,6 +66,14 @@ function isActivePath(pathname: string, url: string) {
 }
 
 export default function SidebarItems({ pathname }: SidebarItemsProps) {
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
   return (
     <>
       {items.map(item => {
@@ -95,7 +107,7 @@ export default function SidebarItems({ pathname }: SidebarItemsProps) {
                           asChild
                           isActive={isActivePath(pathname, subItem.url)}
                         >
-                          <Link href={subItem.url}>
+                          <Link href={subItem.url} onClick={handleLinkClick}>
                             <span>{subItem.title}</span>
                           </Link>
                         </SidebarMenuSubButton>
@@ -115,7 +127,7 @@ export default function SidebarItems({ pathname }: SidebarItemsProps) {
               tooltip={item.title}
               isActive={isParentActive}
             >
-              <Link href={item.url}>
+              <Link href={item.url} onClick={handleLinkClick}>
                 {item.icon}
                 <span>{item.title}</span>
               </Link>

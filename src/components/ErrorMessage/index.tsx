@@ -9,7 +9,7 @@ interface ErrorMessageProps {
 }
 
 export default function ErrorMessage({
-  pageTitle = '',
+  pageTitle,
   contentTitle,
   content,
 }: ErrorMessageProps) {
@@ -18,15 +18,14 @@ export default function ErrorMessage({
       {pageTitle && <title>{pageTitle}</title>}
       <div
         className={cn(
-          'min-h-80 bg-secondary text-secondary-foreground',
-          'mb-16 p-8 rounded-xl',
-          'flex items-center justify-center',
-          'text-center',
+          'min-h-screen flex flex-col items-center justify-center',
+          'bg-background text-foreground text-center px-4',
         )}
       >
-        <div>
-          <h2 className='text-7xl/tight mb-4 font-extrabold'>{contentTitle}</h2>
-          <div>{content}</div>
+        <h1 className='text-4xl font-bold mb-4'>{contentTitle}</h1>
+
+        <div className='text-lg mb-8 flex flex-col items-center gap-4'>
+          {content}
         </div>
       </div>
     </>

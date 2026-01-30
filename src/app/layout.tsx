@@ -43,13 +43,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <Providers defaultOpen={defaultOpen}>
           <div className='min-h-screen flex w-full bg-linear-to-br from-background to-secondary'>
             <AppSidebar />
-
-            <div className='flex-1 flex flex-col'>
+            <div className='w-full items-center justify-center flex-1'>
               <Header />
-
-              <main className='flex-1 p-6'>{children}</main>
-              <Toaster position='bottom-right' richColors />
+              <main>{children}</main>
             </div>
+            <Toaster position='bottom-right' richColors />
           </div>
         </Providers>
       </body>

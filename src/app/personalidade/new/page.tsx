@@ -1,17 +1,14 @@
 import { Separator } from '@/components/ui/separator';
-import {
-  getListaTagsDePersonalidade,
-  TagDePersonalidadeFromApi,
-} from '@/features/tags';
 import FormCriarPersonalidade from '@/components/personalidade/FormCriarPersonalidade';
+import { getListaTagsDePersonalidade } from '@/features/tags/personalidade/tag-personalidade.service';
+import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
 
 export default async function CriarPersonalidadePage() {
-  // 1. Busca os dados no lado do servidor (Rápido, seguro e sem loading spinner no cliente)
   const tagsDisponiveis: TagDePersonalidadeFromApi[] =
     await getListaTagsDePersonalidade();
 
   return (
-    <div className='max-w-3xl mx-auto py-10'>
+    <div className='min-h-screen items-center justify-center px-10 py-8'>
       <div className='mb-6'>
         <h1 className='text-2xl font-bold tracking-tight'>
           Nova Personalidade
@@ -24,7 +21,6 @@ export default async function CriarPersonalidadePage() {
 
       <Separator className='my-6' />
 
-      {/* 2. Passa os dados para o componente cliente */}
       <FormCriarPersonalidade tagsDisponiveis={tagsDisponiveis} />
     </div>
   );
