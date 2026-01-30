@@ -11,7 +11,7 @@ import {
   personalidadeBaseFormSchema,
   PersonalidadeBaseFormValues,
 } from '@/features/personalidade/base/form-schemas';
-import { TagDePersonalidadeFromApi } from '@/features/tags/tag-de-personalidade/tag-de-personalidade.schema';
+import { TagDePersonalidadeFromApi } from '@/features/tags';
 
 interface PersonalidadeFormProps {
   tagsDisponiveis: TagDePersonalidadeFromApi[];

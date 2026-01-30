@@ -1,5 +1,5 @@
 import GerenciadorDeBuscaPersonalidades from '@/components/personalidade/WrapperLista';
-import { getListaTagsDePersonalidade } from '@/features/tags/tag-de-personalidade/service/tag-de-personalidade.service';
+import { getListaTagsDePersonalidade } from '@/features/tags';
 
 export default async function WrapperListaPersonalidades() {
   const tagsDePersonalidadeFromApi = await getListaTagsDePersonalidade();

@@ -6,10 +6,4 @@ export const baseTagSchema = z.object({
   slug: z.string(),
 });
 
-export type TagForApi = z.infer<typeof baseTagSchema>;
-
-export interface BaseTagFromApi {
-  id: string;
-  nome: string;
-  slug: string;
-}
+export type TagSchemaType = z.infer<typeof baseTagSchema>;

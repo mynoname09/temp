@@ -32,7 +32,7 @@ import {
 import { toast } from 'sonner';
 
 import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
-import { TagDePersonalidadeFromApi } from '@/features/tags/tag-de-personalidade/tag-de-personalidade.schema';
+import { TagDePersonalidadeFromApi } from '@/features/tags';
 import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
 import { RequiredLabel } from '@/components/ui/form/required-label';
 

@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { PersonalidadeForm } from '@/components/personalidade/FormPersonalidade'; // O Form visual puro
+import { PersonalidadeForm } from '@/components/personalidade/FormPersonalidade';
 import { createPersonalidadeAction } from '@/app/actions/personalidade/create-personalidade.action';
-import { TagDePersonalidadeFromApi } from '@/features/tags/tag-de-personalidade/tag-de-personalidade.schema';
+import { TagDePersonalidadeFromApi } from '@/features/tags';
 
 export default function FormCriarPersonalidade({
   tagsDisponiveis,

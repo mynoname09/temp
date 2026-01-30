@@ -1,6 +1,8 @@
-import { Separator } from '@/components/ui/separator'; //
-import { getListaTagsDePersonalidade } from '@/features/tags/tag-de-personalidade/service/tag-de-personalidade.service';
-import { TagDePersonalidadeFromApi } from '@/features/tags/tag-de-personalidade/tag-de-personalidade.schema';
+import { Separator } from '@/components/ui/separator';
+import {
+  getListaTagsDePersonalidade,
+  TagDePersonalidadeFromApi,
+} from '@/features/tags';
 import FormCriarPersonalidade from '@/components/personalidade/FormCriarPersonalidade';
 
 export default async function CriarPersonalidadePage() {
