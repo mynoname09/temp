@@ -12,7 +12,6 @@ import {
   SidebarMenuSubItem,
 } from '@ui/sidebar';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import {
   Collapsible,
   CollapsibleContent,
