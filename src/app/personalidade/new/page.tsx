@@ -21,15 +21,17 @@ export default async function CriarPersonalidadePage() {
         // xl
         'xl:px-16 xl:max-w-6xl xl:mx-auto',
         // 2xl (4K)
-        '2xl:max-w-7xl 2xl:px-20'
+        '2xl:max-w-7xl 2xl:px-20',
       )}
     >
-      <div className={cn(
-        // Base (mobile)
-        'mb-4',
-        // md
-        'md:mb-6'
-      )}>
+      <div
+        className={cn(
+          // Base (mobile)
+          'mb-4',
+          // md
+          'md:mb-6',
+        )}
+      >
         <h1
           className={cn(
             // Base (mobile)
@@ -37,7 +39,7 @@ export default async function CriarPersonalidadePage() {
             // md
             'md:text-2xl',
             // 2xl (4K)
-            '2xl:text-3xl'
+            '2xl:text-3xl',
           )}
         >
           Nova Personalidade
@@ -47,7 +49,7 @@ export default async function CriarPersonalidadePage() {
             // Base (mobile)
             'text-muted-foreground text-sm',
             // md
-            'md:text-base'
+            'md:text-base',
           )}
         >
           Cadastre uma personalidade geral (sem cargo político ou artístico

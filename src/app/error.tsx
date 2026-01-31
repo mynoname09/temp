@@ -22,13 +22,13 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
       </p>
       <Link
         href='/'
-        className='px-4 py-2 rounded transition bg-primary text-primary-foreground hover:bg-primary/90'
+        className='px-4 py-2 rounded transition bg-highlight text-primary-foreground hover:bg-highlight-hover'
       >
         Voltar para a página inicial
       </Link>
       <button
         onClick={reset}
-        className='mt-4 px-4 py-2  rounded  transition cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90'
+        className='mt-4 px-4 py-2  rounded  transition cursor-pointer bg-highlight text-primary-foreground hover:bg-highlight-hover'
       >
         Tentar novamente
       </button>

@@ -92,7 +92,7 @@ export default function SidebarItems({ pathname }: SidebarItemsProps) {
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton
                     tooltip={item.title}
-                    variant="neutral"
+                    variant='neutral'
                     className='cursor-pointer'
                   >
                     {item.icon}

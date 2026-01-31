@@ -53,7 +53,7 @@ export function PersonalidadeForm({
           // md
           'md:space-y-8',
           // 2xl (4K)
-          '2xl:space-y-10'
+          '2xl:space-y-10',
         )}
       >
         <PersonalidadeBaseFields
@@ -64,11 +64,11 @@ export function PersonalidadeForm({
         <div
           className={cn(
             // Base (mobile)
-            'flex flex-col-reverse gap-3 pt-4',
+            'flex flex-col-reverse gap-3 pt-6',
             // md
             'md:flex-row md:justify-end md:gap-4 md:pt-6',
             // 2xl (4K)
-            '2xl:pt-8'
+            '2xl:pt-8',
           )}
         >
           <Button
@@ -79,7 +79,7 @@ export function PersonalidadeForm({
               // Base (mobile)
               'w-full',
               // md
-              'md:w-auto'
+              'md:w-auto',
             )}
           >
             Cancelar
@@ -92,7 +92,7 @@ export function PersonalidadeForm({
               // Base (mobile)
               'w-full',
               // md
-              'md:w-auto'
+              'md:w-auto',
             )}
           >
             {form.formState.isSubmitting ? 'Salvando...' : submitLabel}

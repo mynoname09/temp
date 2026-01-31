@@ -98,13 +98,13 @@ export function PersonalidadeBaseFields({
     <div
       className={cn(
         // Base (mobile)
-        'grid grid-cols-1 gap-4',
+        'grid grid-cols-1 gap-4 m-0',
         // md
         'md:grid-cols-2 md:gap-5',
         // lg
         'lg:gap-6',
         // 2xl (4K)
-        '2xl:gap-8'
+        '2xl:gap-8',
       )}
     >
       <FormField
@@ -326,14 +326,16 @@ export function PersonalidadeBaseFields({
                 </Popover>
 
                 {selectedIds.length > 0 && (
-                  <div className={cn(
-                    // Base (mobile)
-                    'rounded-lg border bg-muted/30 p-2.5 space-y-2',
-                    // md
-                    'md:p-3',
-                    // 2xl (4K)
-                    '2xl:p-4'
-                  )}>
+                  <div
+                    className={cn(
+                      // Base (mobile)
+                      'rounded-lg border bg-muted/30 p-2.5 space-y-2',
+                      // md
+                      'md:p-3',
+                      // 2xl (4K)
+                      '2xl:p-4',
+                    )}
+                  >
                     <p className='text-xs font-medium text-muted-foreground uppercase tracking-wide'>
                       Tags selecionadas ({selectedIds.length})
                     </p>
@@ -422,7 +424,7 @@ export function PersonalidadeBaseFields({
                   // md
                   'md:text-base md:min-h-30',
                   // 2xl (4K)
-                  '2xl:min-h-35'
+                  '2xl:min-h-35',
                 )}
                 rows={4}
                 {...field}
@@ -448,7 +450,7 @@ export function PersonalidadeBaseFields({
                   // md
                   'md:text-base md:min-h-30',
                   // 2xl (4K)
-                  '2xl:min-h-35'
+                  '2xl:min-h-35',
                 )}
                 rows={4}
                 {...field}
