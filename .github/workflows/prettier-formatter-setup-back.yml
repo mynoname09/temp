@@ -1,0 +1,101 @@
+name: Format code and push changes
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-format:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run formatter
+        # Ensure you have a .prettierignore file that includes '.github'
+        run: yarn prettier:format
+
+      - name: Commit and Push
+        id: git_check
+        run: |
+          # Verifica se há mudanças no git
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Mudanças detectadas. Commitando..."
+            
+            git add .
+            
+            # [skip ci] é importante para não disparar o workflow novamente em loop
+            git commit -m "chore: code formatted by prettier [skip ci]"
+            
+            # Envia as alterações diretamente para a branch que disparou o workflow
+            git push origin HEAD:${GITHUB_REF#refs/heads/}
+            
+          else
+            echo "Nenhuma mudança de formatação detectada."
+          fi
+
+      # - name: Check for changes and Push
+      #   id: git_check
+      #   run: |
+      #     if [ -n "$(git status --porcelain)" ]; then
+      #       BRANCH="auto/code-formatter-$(date -u +'%Y%m%d-%H%M%S')"
+      #       echo "HAS_CHANGES=true" >> $GITHUB_OUTPUT
+      #       echo "BRANCH_NAME=$BRANCH" >> $GITHUB_OUTPUT
+
+      #       git checkout -b "$BRANCH"
+      #       git add .
+      #       git commit -m "chore: code formatted by prettier"
+      #       git push origin "$BRANCH"
+      #     else
+      #       echo "HAS_CHANGES=false" >> $GITHUB_OUTPUT
+      #       echo "Nenhuma mudança de formatação detectada."
+      #     fi
+
+      # - name: Create Pull Request
+      #   if: steps.git_check.outputs.HAS_CHANGES == 'true'
+      #   id: create_pr
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     gh pr create \
+      #       --title "chore: code formatted by prettier" \
+      #       --body "This PR contains automatic formatting changes." \
+      #       --head "${{ steps.git_check.outputs.BRANCH_NAME }}" \
+      #       --base setup/backend
+
+      # - name: Merge PR automatically
+      #   if: steps.git_check.outputs.HAS_CHANGES == 'true'
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     PR_URL=$(gh pr list --head "${{ steps.git_check.outputs.BRANCH_NAME }}" --json url -q '.[0].url')
+      #     if [ -n "$PR_URL" ]; then
+      #       gh pr merge "$PR_URL" --squash --delete-branch --admin
+      #     else
+      #       echo "PR not found"
+      #     fi
