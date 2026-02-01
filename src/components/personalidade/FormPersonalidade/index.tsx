@@ -1,4 +1,3 @@
-// components/personalidade/PersonalidadeForm.tsx
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -37,7 +36,7 @@ export function PersonalidadeForm({
       sobrenome: '',
       id_tag_personalidade: [],
       resumo_biografico: ' ',
-      ...defaultValues, // Sobrescreve se houver dados iniciais
+      ...defaultValues,
     },
   });
 

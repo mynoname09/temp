@@ -1,60 +1,21 @@
-'use client'; // 1. Necessário para usar hooks
+'use client';
 
-import {
-  ChevronDownIcon,
-  CircleQuestionMarkIcon,
-  HomeIcon,
-  UsersRoundIcon,
-} from 'lucide-react';
+import { ChevronDownIcon } from 'lucide-react';
 import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar, // 2. Importe o hook useSidebar
-} from '@ui/sidebar'; // Verifique se o caminho está correto, às vezes é '@/components/ui/sidebar'
+  useSidebar,
+} from '@ui/sidebar';
 import Link from 'next/link';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@radix-ui/react-collapsible';
-
-interface SidebarItem {
-  title: string;
-  url: string;
-  icon: React.ReactNode;
-  colapiside?: {
-    items: SidebarItem[];
-  };
-}
-
-// ... (definição da constante items permanece igual) ...
-const items: SidebarItem[] = [
-  { title: 'Home', url: '/', icon: <HomeIcon /> },
-  { title: 'Governadores', url: '/governador', icon: <UsersRoundIcon /> },
-  {
-    title: 'Personalidades',
-    url: '/personalidade',
-    icon: <UsersRoundIcon />,
-    colapiside: {
-      items: [
-        {
-          title: 'Personalidades cadastradas',
-          url: '/personalidade',
-          icon: <UsersRoundIcon />,
-        },
-        {
-          title: 'Adicionar personalidade',
-          url: '/personalidade/new',
-          icon: <UsersRoundIcon />,
-        },
-      ],
-    },
-  },
-  { title: 'Sobre', url: '/sobre', icon: <CircleQuestionMarkIcon /> },
-];
+import { items } from './paths-side-bar';
 
 type SidebarItemsProps = {
   pathname: string;
@@ -77,7 +38,7 @@ export default function SidebarItems({ pathname }: SidebarItemsProps) {
   return (
     <>
       {items.map(item => {
-        const hasSubItems = item.colapiside && item.colapiside.items.length > 0;
+        const hasSubItems = item.collapside && item.collapside.items.length > 0;
         const isParentActive = isActivePath(pathname, item.url);
 
         if (hasSubItems) {
@@ -102,7 +63,7 @@ export default function SidebarItems({ pathname }: SidebarItemsProps) {
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {item.colapiside!.items.map(subItem => (
+                    {item.collapside!.items.map(subItem => (
                       <SidebarMenuSubItem key={subItem.url}>
                         <SidebarMenuSubButton
                           asChild
