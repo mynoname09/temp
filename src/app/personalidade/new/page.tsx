@@ -1,4 +1,4 @@
-import FormCriarPersonalidade from '@/components/personalidade/FormCriarPersonalidade';
+import FormCriarPersonalidade from '@/components/personalidade/forms/FormCriarPersonalidade';
 import { getListaTagsDePersonalidade } from '@/features/tags/personalidade/tag-personalidade.service';
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
 import LayoutFormCadastro from '@/components/LayoutFormCadastro';

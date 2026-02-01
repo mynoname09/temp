@@ -8,7 +8,7 @@ export const tagGovernadorService = createTagService<TagDeGovernadorFromApi>({
 
 export const {
   getAll: getListaTagsDeGovernador,
-  getById: getTagDeGovernadorById,
+  // getById: getTagDeGovernadorById,
   create: createTagDeGovernador,
   update: updateTagDeGovernador,
   remove: removeTagDeGovernador,

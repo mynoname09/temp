@@ -1,7 +1,7 @@
 'use client';
 
 import { toast } from 'sonner';
-import { PersonalidadeForm } from '@/components/personalidade/FormPersonalidade';
+import { PersonalidadeForm } from '@/components/personalidade/forms/FormPersonalidade';
 import { createPersonalidadeAction } from '@/app/actions/personalidade/create-personalidade.action';
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
 

@@ -17,15 +17,6 @@ export function createTagService<T extends BaseTagFromApi = BaseTagFromApi>(
     }
   });
 
-  const getById = cache(async function getById(id: string): Promise<T | null> {
-    try {
-      const response: T = await apiAcervoPublicoFCJA.get(`${basePath}/${id}`);
-      return response;
-    } catch (error) {
-      console.error(`Erro ao buscar tag de ${entityName} com id ${id}:`, error);
-      return null;
-    }
-  });
 
   async function create(data: CreateTagDto): Promise<T> {
     const response: T = await apiAcervoPublicoFCJA.post(basePath, data);
@@ -40,12 +31,11 @@ export function createTagService<T extends BaseTagFromApi = BaseTagFromApi>(
   }
 
   async function remove(id: string): Promise<void> {
-    await apiAcervoPublicoFCJA.delete(`${basePath}/${id}`);
+    await apiAcervoPublicoFCJA.delete<T>(`${basePath}/${id}`);
   }
 
   return {
     getAll,
-    getById,
     create,
     update,
     remove,

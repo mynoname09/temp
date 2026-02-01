@@ -9,7 +9,7 @@ export const tagPersonalidadeService =
 
 export const {
   getAll: getListaTagsDePersonalidade,
-  getById: getTagDePersonalidadeById,
+  // getById: getTagDePersonalidadeById,
   create: createTagDePersonalidade,
   update: updateTagDePersonalidade,
   remove: removeTagDePersonalidade,
