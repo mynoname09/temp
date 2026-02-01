@@ -13,19 +13,19 @@ import {
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
 import { cn } from '@/lib/utils';
 
-interface PersonalidadeFormProps {
+interface GovernadorFormProps {
   tagsDisponiveis: TagDePersonalidadeFromApi[];
-  defaultValues?: Partial<PersonalidadeBaseFormValues>; // Opcional para Create, Obrigatório para Edit
-  onSubmit: (data: PersonalidadeBaseFormValues) => Promise<void>; // A lógica vem de fora
+  defaultValues?: Partial<PersonalidadeBaseFormValues>;
+  onSubmit: (data: PersonalidadeBaseFormValues) => Promise<void>;
   submitLabel?: string;
 }
 
-export function PersonalidadeForm({
+export function GovernadorForm({
   tagsDisponiveis,
   defaultValues,
   onSubmit,
   submitLabel = 'Salvar',
-}: PersonalidadeFormProps) {
+}: GovernadorFormProps) {
   const router = useRouter();
 
   // Valores padrão inteligentes: usa o que veio (edição) ou vazio (criação)
@@ -75,7 +75,6 @@ export function PersonalidadeForm({
             variant='outline'
             onClick={() => router.back()}
             className={cn(
-              'cursor-pointer',
               // Base (mobile)
               'w-full',
               // md
@@ -89,7 +88,6 @@ export function PersonalidadeForm({
             type='submit'
             disabled={form.formState.isSubmitting}
             className={cn(
-              'cursor-pointer',
               // Base (mobile)
               'w-full',
               // md
