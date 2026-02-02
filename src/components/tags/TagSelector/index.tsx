@@ -150,7 +150,7 @@ export function TagSelector<TTag extends BaseTagFromApi>({
                         type='button'
                         variant='default'
                         size='sm'
-                        className='w-full gap-2'
+                        className='w-full gap-2 cursor-pointer'
                         onClick={() => handleCreateTag(inputValue)}
                         disabled={isCreating}
                       >

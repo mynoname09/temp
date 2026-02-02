@@ -25,6 +25,7 @@ interface PersonalidadeBaseFieldsProps {
   tagsDisponiveis: TagDePersonalidadeFromApi[];
 }
 
+// TODO: RENOMEAR
 /**
  * Cria uma nova tag de personalidade via API
  */

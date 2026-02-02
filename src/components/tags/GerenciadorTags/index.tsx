@@ -17,6 +17,8 @@ import ListaTags from '../ListaTags';
 import FormTag, { FormTagData } from '../FormTag';
 import { ConfirmDialog } from '@/components/Dialog';
 
+// TODO: FIX ME: Importar do lugar correto
+
 export type TagActions<T extends BaseTagFromApi> = {
   create: (data: CreateTagDto) => Promise<T>;
   update: (id: string, data: Partial<CreateTagDto>) => Promise<T>;
