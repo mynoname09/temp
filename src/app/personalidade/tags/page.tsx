@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { GerenciadorTagsShell } from '@/components/tags/GerenciadorTags';
 import ListaTagsSkeleton from '@/components/tags/ListaTags/skeleton-lista-tags';
 
+// TODO: SEPARAR COMPONENTES EM ARQUIVOS PRÓPRIOS
 // Componente async que busca os dados
 async function ListaTagsContent() {
   const tagsDisponiveisPesquisa = await getListaTagsDePersonalidade();
