@@ -4,10 +4,6 @@ export interface BaseTagFromApi {
   slug: string;
 }
 
-export interface CreateTagDto {
-  nome: string;
-}
-
 export interface TagServiceConfig {
   basePath: string;
   entityName: string;

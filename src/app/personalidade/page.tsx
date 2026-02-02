@@ -1,11 +1,8 @@
-import GerenciadorDeBuscaPersonalidades from '@/components/personalidade/WrapperLista';
-import { getListaTagsDePersonalidade } from '@/features/tags/personalidade/tag-personalidade.service';
+import { Suspense } from 'react';
+import { ConteudoListaPersonalidade } from '@/components/personalidade/WrapperLista/conteudo-lista-personalidade';
+import { PersonalidadesLoadingFallback } from '@/components/personalidade/WrapperLista/fallback-conteudo-lista-de-personalidade';
 
-export default async function WrapperListaPersonalidades() {
-  // throw new Error('Página desativada temporariamente.');
-
-  const tagsDePersonalidadeFromApi = await getListaTagsDePersonalidade();
-
+export default function WrapperListaPersonalidades() {
   return (
     <main className='flex-1 w-full flex flex-col'>
       <section className='py-7 md:py-10 pb-2 px-1'>
@@ -22,9 +19,9 @@ export default async function WrapperListaPersonalidades() {
         </div>
       </section>
 
-      <GerenciadorDeBuscaPersonalidades
-        tagsDisponiveisPesquisa={tagsDePersonalidadeFromApi}
-      />
+      <Suspense fallback={<PersonalidadesLoadingFallback />}>
+        <ConteudoListaPersonalidade />
+      </Suspense>
     </main>
   );
 }

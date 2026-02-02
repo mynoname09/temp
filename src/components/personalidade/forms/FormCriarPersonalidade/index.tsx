@@ -10,6 +10,7 @@ export default function FormCriarPersonalidade({
 }: {
   tagsDisponiveis: TagDePersonalidadeFromApi[];
 }) {
+  //TODO: TIPAR e adicionar redirecionamento após criação
   // A função é criada AQUI, no cliente
   async function onSubmit(data: any) {
     console.log(data);

@@ -1,54 +1,51 @@
 'use client';
 
-import { Pencil, Trash2 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { Trash2Icon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { cn } from '@/lib/utils';
 
 export type TagItemProps<T extends BaseTagFromApi> = {
   tag: T;
-  onEdit?: (tag: T) => void;
-  onDelete?: (tag: T) => void;
-  showActions?: boolean;
+  onEditAction?: (tag: T) => void;
+  onDeleteAction?: (tag: T) => void;
 };
 
 export default function TagItem<T extends BaseTagFromApi>({
   tag,
-  onEdit,
-  onDelete,
-  showActions = true,
+  onEditAction,
+  onDeleteAction,
 }: TagItemProps<T>) {
   return (
-    <div className="flex items-center gap-2 group">
-      <Badge variant="secondary" className="text-sm py-1.5 px-3">
+    <div className='flex items-center gap-1 group border-2 rounded-md'>
+      <Button
+        variant='ghost'
+        onClick={() => onEditAction?.(tag)}
+        aria-label={`Editar tag ${tag.nome}`}
+        className={cn(
+          'cursor-pointer h-full rounded-r-none rounded-l-[14px] px-2 pr-1 font-medium',
+          'hover:bg-transparent',
+        )}
+      >
         {tag.nome}
-      </Badge>
+      </Button>
 
-      {showActions && (
-        <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          {onEdit && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={() => onEdit(tag)}
-              aria-label={`Editar tag ${tag.nome}`}
-            >
-              <Pencil className="size-4" />
-            </Button>
+      {/* Separador vertical centralizado visualmente */}
+      <span className='h-4 w-px bg-border shrink-0' />
+
+      <div className='flex items-center justify-center group-hover:opacity-100 transition-opacity'>
+        <Button
+          variant='ghost'
+          onClick={() => onDeleteAction?.(tag)}
+          aria-label={`Excluir tag ${tag.nome}`}
+          className={cn(
+            'text-highlight cursor-pointer size-8 rounded-full',
+            'hover:bg-transparent hover:text-highlight-hover',
           )}
-          {onDelete && (
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={() => onDelete(tag)}
-              aria-label={`Excluir tag ${tag.nome}`}
-              className="text-destructive hover:text-destructive"
-            >
-              <Trash2 className="size-4" />
-            </Button>
-          )}
-        </div>
-      )}
+        >
+          <Trash2Icon className='size-4 mr-1' />
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { Check, ChevronsUpDown, Plus, X } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import {
@@ -14,96 +12,52 @@ import {
   FormDescription,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { toast } from 'sonner';
 
 import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
 import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
 import { RequiredLabel } from '@/components/ui/form/required-label';
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
+import { TagSelector } from '@/components/tags';
 
 interface PersonalidadeBaseFieldsProps {
   form: UseFormReturn<PersonalidadeBaseFormValues>;
   tagsDisponiveis: TagDePersonalidadeFromApi[];
 }
 
+/**
+ * Cria uma nova tag de personalidade via API
+ */
+async function criarTagDePersonalidade(
+  nome: string,
+): Promise<TagDePersonalidadeFromApi> {
+  const novaTag = await apiAcervoPublicoFCJA.post<TagDePersonalidadeFromApi>(
+    '/personalidade/tags',
+    { nome },
+  );
+  toast.success(`Tag "${novaTag.nome}" criada e selecionada!`);
+  return novaTag;
+}
+
+/**
+ * Trata erros na criação de tags
+ */
+function handleTagCreationError(error: unknown): never {
+  console.error(error);
+  toast.error('Erro ao criar tag. Verifique se ela já existe.');
+  throw error;
+}
+
 export function PersonalidadeBaseFields({
   form,
-  tagsDisponiveis: tagsIniciais,
+  tagsDisponiveis,
 }: PersonalidadeBaseFieldsProps) {
-  const [tagsLocais, setTagsLocais] =
-    useState<TagDePersonalidadeFromApi[]>(tagsIniciais);
-
-  const [inputValue, setInputValue] = useState('');
-  const [openCombobox, setOpenCombobox] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
-
-  async function handleCreateTag(nomeDaTag: string) {
-    if (!nomeDaTag) return;
-
-    // Previne múltiplos cliques
-    setIsCreating(true);
-
-    try {
-      const novaTag =
-        await apiAcervoPublicoFCJA.post<TagDePersonalidadeFromApi>(
-          '/personalidade/tags',
-          { nome: nomeDaTag },
-        );
-
-      setTagsLocais(prev => [...prev, novaTag]);
-
-      const currentValues = form.getValues('id_tag_personalidade') || [];
-      // Se certifique de que está salvando apenas o ID (string)
-      form.setValue('id_tag_personalidade', [...currentValues, novaTag.id]);
-
-      toast.success(`Tag "${novaTag.nome}" criada e selecionada!`);
-      setInputValue('');
-      // Opcional: Fechar o popover após criar
-      // setOpenCombobox(false);
-    } catch (error) {
-      console.error(error);
-      toast.error('Erro ao criar tag. Verifique se ela já existe.');
-    } finally {
-      setIsCreating(false);
-    }
-  }
-
-  const toggleTag = (tagId: string, currentIds: string[]) => {
-    if (currentIds.includes(tagId)) {
-      form.setValue(
-        'id_tag_personalidade',
-        currentIds.filter(id => id !== tagId),
-      );
-    } else {
-      form.setValue('id_tag_personalidade', [...currentIds, tagId]);
-    }
-  };
-
   return (
     <div
       className={cn(
-        // Base (mobile)
         'grid grid-cols-1 gap-4 m-0',
-        // md
         'md:grid-cols-2 md:gap-5',
-        // lg
         'lg:gap-6',
-        // 2xl (4K)
         '2xl:gap-8',
       )}
     >
@@ -156,10 +110,16 @@ export function PersonalidadeBaseFields({
         name='naturalidade'
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Naturalidade (Opcional)</FormLabel>
-            <FormDescription>
-              Use o formato: Cidade, Estado (ex: Recife, Pernambuco)
-            </FormDescription>
+            {/* Usamos um flex no label para colocar a dica na mesma linha */}
+            <div className='flex items-center gap-2'>
+              <FormLabel className='mb-0'>Naturalidade (Opcional)</FormLabel>
+              {/* barra vertical */}
+              <span className='h-4 w-px bg-border inline-block' />
+              <span className='text-xs text-muted-foreground font-normal hidden sm:inline-block'>
+                (Formato: Cidade, Estado)
+              </span>
+            </div>
+
             <FormControl>
               <Input
                 placeholder='Ex: Recife, Pernambuco'
@@ -167,6 +127,8 @@ export function PersonalidadeBaseFields({
                 value={field.value || ''}
               />
             </FormControl>
+
+            {/* O FormDescription/p foi removido daqui para não gerar altura extra */}
             <FormMessage />
           </FormItem>
         )}
@@ -177,197 +139,40 @@ export function PersonalidadeBaseFields({
         <FormField
           control={form.control}
           name='id_tag_personalidade'
-          render={({ field }) => {
-            const selectedIds = field.value || [];
+          render={({ field }) => (
+            <FormItem className='flex flex-col gap-2 md:gap-3'>
+              <div className='space-y-1'>
+                <FormLabel className='text-base font-medium'>
+                  Tags de Personalidade
+                </FormLabel>
+                <FormDescription className='text-sm'>
+                  Categorize a personalidade selecionando tags existentes ou
+                  criando novas.
+                </FormDescription>
+              </div>
 
-            return (
-              <FormItem className={cn('flex flex-col gap-2', 'md:gap-3')}>
-                <div className='space-y-1'>
-                  <FormLabel className='text-base font-medium'>
-                    Tags de Personalidade
-                  </FormLabel>
-                  <FormDescription className='text-sm'>
-                    Categorize a personalidade selecionando tags existentes ou
-                    criando novas.
-                  </FormDescription>
-                </div>
-
-                <Popover open={openCombobox} onOpenChange={setOpenCombobox}>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant='outline'
-                        role='combobox'
-                        className={cn(
-                          'w-full justify-between h-auto min-h-11 px-3 py-2 border-2 transition-colors',
-                          'hover:bg-accent/50 hover:border-primary/30 cursor-pointer',
-                          openCombobox &&
-                            'border-primary ring-2 ring-primary/20',
-                          !selectedIds.length && 'text-muted-foreground',
-                        )}
-                      >
-                        {selectedIds.length > 0 ? (
-                          <div className='flex items-center gap-2 text-left'>
-                            <span className='text-sm font-medium text-foreground'>
-                              {selectedIds.length}{' '}
-                              {selectedIds.length === 1
-                                ? 'tag selecionada'
-                                : 'tags selecionadas'}
-                            </span>
-                          </div>
-                        ) : (
-                          <span className='flex items-center gap-2'>
-                            <Plus className='h-4 w-4' />
-                            Clique para selecionar ou criar tags...
-                          </span>
-                        )}
-                        <ChevronsUpDown
-                          className={cn(
-                            'ml-2 h-4 w-4 shrink-0 transition-transform duration-200',
-                            openCombobox && 'rotate-180',
-                          )}
-                        />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-
-                  <PopoverContent
-                    className='w-(--radix-popover-trigger-width) p-0 shadow-lg border-2'
-                    align='start'
-                  >
-                    <Command className='rounded-lg'>
-                      <CommandInput
-                        placeholder='🔍 Buscar ou digitar nova tag...'
-                        value={inputValue}
-                        onValueChange={setInputValue}
-                        className='h-11'
-                      />
-                      <CommandList>
-                        <CommandEmpty className='py-4 px-4'>
-                          {inputValue.trim().length > 0 ? (
-                            <div className='flex flex-col items-center gap-3 text-center'>
-                              <div className='rounded-full bg-muted p-3'>
-                                <Plus className='h-5 w-5 text-muted-foreground' />
-                              </div>
-                              <div className='space-y-1'>
-                                <p className='text-sm font-medium'>
-                                  Tag não encontrada
-                                </p>
-                                <p className='text-xs text-muted-foreground'>
-                                  Deseja criar uma nova tag?
-                                </p>
-                              </div>
-                              <Button
-                                type='button'
-                                variant='default'
-                                size='sm'
-                                className='w-full gap-2'
-                                onClick={() => handleCreateTag(inputValue)}
-                                disabled={isCreating}
-                              >
-                                <Plus className='h-4 w-4' />
-                                {isCreating
-                                  ? 'Criando...'
-                                  : `Criar "${inputValue}"`}
-                              </Button>
-                            </div>
-                          ) : (
-                            <div className='flex flex-col items-center gap-2 text-center py-2'>
-                              <p className='text-sm text-muted-foreground'>
-                                Nenhuma tag disponível.
-                              </p>
-                              <p className='text-xs text-muted-foreground'>
-                                Digite para criar uma nova.
-                              </p>
-                            </div>
-                          )}
-                        </CommandEmpty>
-
-                        <CommandGroup
-                          heading='Tags disponíveis'
-                          className='max-h-56 overflow-y-auto'
-                        >
-                          {tagsLocais.map(tag => {
-                            const isSelected = selectedIds.includes(tag.id);
-                            return (
-                              <CommandItem
-                                key={tag.id}
-                                value={tag.nome}
-                                onSelect={() => {
-                                  toggleTag(tag.id, selectedIds);
-                                }}
-                                className={cn(
-                                  'flex items-center gap-2 cursor-pointer transition-colors',
-                                  'aria-selected:bg-transparent data-[selected=true]:bg-transparent',
-                                  'aria-selected:text-foreground data-[selected=true]:text-foreground',
-                                  'hover:text-accent-foreground!',
-                                  isSelected &&
-                                    'bg-primary/10 hover:bg-primary/15! font-medium',
-                                )}
-                              >
-                                <div
-                                  className={cn(
-                                    'flex h-5 w-5 items-center justify-center rounded border-2 transition-colors',
-                                    isSelected
-                                      ? 'border-primary bg-primary text-primary-foreground'
-                                      : 'border-muted-foreground/30',
-                                  )}
-                                >
-                                  {isSelected && <Check className='h-3 w-3' />}
-                                </div>
-                                <span className='flex-1'>{tag.nome}</span>
-                              </CommandItem>
-                            );
-                          })}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-
-                {selectedIds.length > 0 && (
-                  <div
-                    className={cn(
-                      // Base (mobile)
-                      'rounded-lg border bg-muted/30 p-2.5 space-y-2',
-                      // md
-                      'md:p-3',
-                      // 2xl (4K)
-                      '2xl:p-4',
-                    )}
-                  >
-                    <p className='text-xs font-medium text-muted-foreground uppercase tracking-wide'>
-                      Tags selecionadas ({selectedIds.length})
-                    </p>
-                    <div className='flex flex-wrap gap-2'>
-                      {selectedIds.map(id => {
-                        const tag = tagsLocais.find(t => t.id === id);
-                        if (!tag) return null;
-                        return (
-                          <Badge
-                            key={id}
-                            variant='secondary'
-                            className='pl-3 pr-1.5 py-1.5 text-sm font-medium flex items-center gap-1.5 bg-background border shadow-sm hover:shadow transition-shadow'
-                          >
-                            {tag.nome}
-                            <button
-                              type='button'
-                              className='ml-1 p-0.5 rounded-full hover:bg-destructive/20 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 transition-colors'
-                              onClick={() => toggleTag(id, selectedIds)}
-                              aria-label={`Remover tag ${tag.nome}`}
-                            >
-                              <X className='h-3.5 w-3.5 text-muted-foreground hover:text-destructive transition-colors' />
-                            </button>
-                          </Badge>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+              <FormControl>
+                <TagSelector<TagDePersonalidadeFromApi>
+                  tagsDisponiveis={tagsDisponiveis}
+                  selectedIds={field.value || []}
+                  onSelectionChange={(ids: string[]) =>
+                    form.setValue('id_tag_personalidade', ids)
+                  }
+                  onCreateTag={async (nome: string) => {
+                    try {
+                      return await criarTagDePersonalidade(nome);
+                    } catch (error) {
+                      handleTagCreationError(error);
+                    }
+                  }}
+                  searchPlaceholder='🔍 Buscar ou digitar nova tag...'
+                  emptySelectionText='Clique para selecionar ou criar tags...'
+                  groupHeading='Tags disponíveis'
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
       </div>
 

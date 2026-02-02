@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { BaseTagFromApi } from '@/features/tags/tag.schema';
+import { BaseTagFromApi } from '@/features/tags/tag.types';
 import { FiltroFormSchema } from '@/lib/pesquisa/pesquisa.schemas';
 import InputPesquisa from './InputPesquisa';
 import ToggleFiltrosBtn from './ToggleFiltroBtn';
@@ -77,7 +77,7 @@ export default function BarraDePesquisa({
   const temTagsDisponiveis = tagsPesquisa.length > 0;
 
   return (
-    <section className='pb-12 px-4'>
+    <section className='pb-8 px-4'>
       <div className='container mx-auto max-w-3xl relative z-20'>
         <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
           <div className='flex items-center gap-2 w-full'>

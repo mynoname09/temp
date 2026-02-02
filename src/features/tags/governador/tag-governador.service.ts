@@ -1,7 +1,15 @@
 import { createTagService } from '../tag.service';
-import { TagDeGovernadorFromApi } from './tag-governador.schema';
+import {
+  CreateTagDeGovernadorDto,
+  TagDeGovernadorFromApi,
+  UpdateTagDeGovernadorDto,
+} from './tag-governador.schema';
 
-export const tagGovernadorService = createTagService<TagDeGovernadorFromApi>({
+export const tagGovernadorService = createTagService<
+  CreateTagDeGovernadorDto,
+  UpdateTagDeGovernadorDto,
+  TagDeGovernadorFromApi
+>({
   basePath: '/governador/tags',
   entityName: 'governador',
 });

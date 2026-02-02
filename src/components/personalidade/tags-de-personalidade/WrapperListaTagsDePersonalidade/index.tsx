@@ -6,8 +6,6 @@ type WrapperListaTagsDePersonalidadeProps = {
   actions: TagActions<TagDePersonalidadeFromApi>;
 };
 
-// Componente específico para gerenciar tags de personalidade
-// Utiliza o componente genérico GerenciadorTags
 export default function WrapperListaTagsDePersonalidade({
   initialTags,
   actions,
@@ -16,9 +14,8 @@ export default function WrapperListaTagsDePersonalidade({
     <GerenciadorTags<TagDePersonalidadeFromApi>
       initialTags={initialTags}
       actions={actions}
-      entityName="personalidade"
-      title="Tags de Personalidade"
-      searchPlaceholder="Buscar tags de personalidade..."
+      entityName='personalidade'
+      searchPlaceholder='Buscar tags de personalidade...'
     />
   );
 }

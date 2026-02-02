@@ -29,7 +29,7 @@ export default function InputPesquisa({
   return (
     <div
       className={cn(
-        'relative bg-card border border-border rounded-2xl shadow-sm hover:border-highlight hover:shadow-md transition-all z-20',
+        'relative bg-card border border-border rounded-2xl shadow-sm hover:border-highlight hover:shadow-md transition-all z-20 focus-within:border-highlight focus-within:shadow-md',
         containerClassName,
       )}
     >

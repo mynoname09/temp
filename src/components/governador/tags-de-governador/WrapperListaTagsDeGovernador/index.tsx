@@ -6,8 +6,6 @@ type WrapperListaTagsDeGovernadorProps = {
   actions: TagActions<TagDeGovernadorFromApi>;
 };
 
-// Componente específico para gerenciar tags de governador
-// Utiliza o componente genérico GerenciadorTags
 export default function WrapperListaTagsDeGovernador({
   initialTags,
   actions,
@@ -16,9 +14,8 @@ export default function WrapperListaTagsDeGovernador({
     <GerenciadorTags<TagDeGovernadorFromApi>
       initialTags={initialTags}
       actions={actions}
-      entityName="governador"
-      title="Tags de Governador"
-      searchPlaceholder="Buscar tags de governador..."
+      entityName='governador'
+      searchPlaceholder='Buscar tags de governador...'
     />
   );
 }

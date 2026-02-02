@@ -6,4 +6,10 @@ export const baseTagSchema = z.object({
   slug: z.string(),
 });
 
-export type TagSchemaType = z.infer<typeof baseTagSchema>;
+export const createTagBaseSchema = z.object({
+  nome: z.string().min(1).max(100),
+});
+
+export const updateTagBaseSchema = z.object({
+  nome: z.string().min(1).max(100).optional(),
+});

@@ -6,9 +6,14 @@ import {
   updateTagDePersonalidade,
   removeTagDePersonalidade,
 } from '@/features/tags/personalidade/tag-personalidade.service';
-import { CreateTagDto } from '@/features/tags/tag.types';
+import {
+  CreateTagDePersonalidadeDto,
+  UpdateTagDePersonalidadeDto,
+} from '@/features/tags/personalidade/tag-personalidade.schema';
 
-export async function createTagPersonalidadeAction(data: CreateTagDto) {
+export async function createTagPersonalidadeAction(
+  data: CreateTagDePersonalidadeDto,
+) {
   const newTag = await createTagDePersonalidade(data);
   revalidatePath('/personalidade/tags');
   return newTag;
@@ -16,7 +21,7 @@ export async function createTagPersonalidadeAction(data: CreateTagDto) {
 
 export async function updateTagPersonalidadeAction(
   id: string,
-  data: Partial<CreateTagDto>,
+  data: UpdateTagDePersonalidadeDto,
 ) {
   const updatedTag = await updateTagDePersonalidade(id, data);
   revalidatePath('/personalidade/tags');
