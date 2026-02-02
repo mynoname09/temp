@@ -1,43 +1,10 @@
 import { Suspense } from 'react';
 import WrapperListaTagsDePersonalidade from '@/components/personalidade/tags-de-personalidade/WrapperListaTagsDePersonalidade';
-import { getListaTagsDePersonalidade } from '@/features/tags/personalidade/tag-personalidade.service';
-import {
-  createTagPersonalidadeAction,
-  updateTagPersonalidadeAction,
-  deleteTagPersonalidadeAction,
-} from '@/app/actions/personalidade/tag-personalidade.actions';
 import { Separator } from '@radix-ui/react-separator';
 import { cn } from '@/lib/utils';
-import { GerenciadorTagsShell } from '@/components/tags/GerenciadorTags';
-import ListaTagsSkeleton from '@/components/tags/ListaTags/skeleton-lista-tags';
+import { TagsLoadingFallback } from '@/components/personalidade/tags-de-personalidade/WrapperListaTagsDePersonalidade/fall-back';
 
-// TODO: SEPARAR COMPONENTES EM ARQUIVOS PRÓPRIOS
-// Componente async que busca os dados
-async function ListaTagsContent() {
-  const tagsDisponiveisPesquisa = await getListaTagsDePersonalidade();
-
-  return (
-    <WrapperListaTagsDePersonalidade
-      initialTags={tagsDisponiveisPesquisa}
-      actions={{
-        create: createTagPersonalidadeAction,
-        update: updateTagPersonalidadeAction,
-        remove: deleteTagPersonalidadeAction,
-      }}
-    />
-  );
-}
-
-function TagsLoadingFallback() {
-  return (
-    <GerenciadorTagsShell
-      entityName='personalidade'
-      searchPlaceholder='Buscar tags de personalidade...'
-    >
-      <ListaTagsSkeleton quantidade={12} />
-    </GerenciadorTagsShell>
-  );
-}
+// TODO: componentizar o layout padrão das páginas de tags
 
 export default function ListaTagsPersonalidade() {
   return (
@@ -89,7 +56,7 @@ export default function ListaTagsPersonalidade() {
       />
 
       <Suspense fallback={<TagsLoadingFallback />}>
-        <ListaTagsContent />
+        <WrapperListaTagsDePersonalidade />
       </Suspense>
     </div>
   );
