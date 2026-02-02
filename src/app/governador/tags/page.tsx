@@ -11,6 +11,8 @@ import ListaTagsSkeleton from '@/components/tags/ListaTags/skeleton-lista-tags';
 import { cn } from '@/lib/utils';
 import { Separator } from '@radix-ui/react-separator';
 
+
+//TODO: SEPARAR COMPONENTES EM ARQUIVOS PRÓPRIOS
 // Componente async que busca os dados
 async function ListaTagsContent() {
   const tagsDisponiveisPesquisa = await getListaTagsDeGovernador();
