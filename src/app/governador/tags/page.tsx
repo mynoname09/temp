@@ -1,45 +1,8 @@
 import { Suspense } from 'react';
-import {
-  createTagGovernadorAction,
-  deleteTagGovernadorAction,
-  updateTagGovernadorAction,
-} from '@/app/actions/governador/tag-governador.actions';
 import WrapperListaTagsDeGovernador from '@/components/governador/tags-de-governador/WrapperListaTagsDeGovernador';
-import { getListaTagsDeGovernador } from '@/features/tags/governador/tag-governador.service';
-import { GerenciadorTagsShell } from '@/components/tags/GerenciadorTags';
-import ListaTagsSkeleton from '@/components/tags/ListaTags/skeleton-lista-tags';
 import { cn } from '@/lib/utils';
 import { Separator } from '@radix-ui/react-separator';
-
-
-//TODO: SEPARAR COMPONENTES EM ARQUIVOS PRÓPRIOS
-// Componente async que busca os dados
-async function ListaTagsContent() {
-  const tagsDisponiveisPesquisa = await getListaTagsDeGovernador();
-
-  return (
-    <WrapperListaTagsDeGovernador
-      initialTags={tagsDisponiveisPesquisa}
-      actions={{
-        create: createTagGovernadorAction,
-        update: updateTagGovernadorAction,
-        remove: deleteTagGovernadorAction,
-      }}
-    />
-  );
-}
-
-// Fallback skeleton com a estrutura da pesquisa visível
-function TagsLoadingFallback() {
-  return (
-    <GerenciadorTagsShell
-      entityName='governador'
-      searchPlaceholder='Buscar tags de governador...'
-    >
-      <ListaTagsSkeleton quantidade={12} />
-    </GerenciadorTagsShell>
-  );
-}
+import { TagsLoadingFallback } from '@/components/personalidade/tags-de-personalidade/WrapperListaTagsDePersonalidade/fall-back';
 
 export default function ListaTagsGovernador() {
   return (
@@ -88,7 +51,7 @@ export default function ListaTagsGovernador() {
       <Separator className={cn('my-4', 'md:my-6')} />
 
       <Suspense fallback={<TagsLoadingFallback />}>
-        <ListaTagsContent />
+        <WrapperListaTagsDeGovernador />
       </Suspense>
     </div>
   );

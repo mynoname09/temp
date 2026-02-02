@@ -1,19 +1,23 @@
-import GerenciadorTags, { TagActions } from '@/components/tags/GerenciadorTags';
+import {
+  createTagGovernadorAction,
+  deleteTagGovernadorAction,
+  updateTagGovernadorAction,
+} from '@/app/actions/governador/tag-governador.actions';
+import GerenciadorTags from '@/components/tags/GerenciadorTags';
 import { TagDeGovernadorFromApi } from '@/features/tags/governador/tag-governador.schema';
+import { getListaTagsDeGovernador } from '@/features/tags/governador/tag-governador.service';
 
-type WrapperListaTagsDeGovernadorProps = {
-  initialTags: TagDeGovernadorFromApi[];
-  actions: TagActions<TagDeGovernadorFromApi>;
-};
+export default async function WrapperListaTagsDeGovernador() {
+  const initialTags = await getListaTagsDeGovernador();
 
-export default function WrapperListaTagsDeGovernador({
-  initialTags,
-  actions,
-}: WrapperListaTagsDeGovernadorProps) {
   return (
     <GerenciadorTags<TagDeGovernadorFromApi>
       initialTags={initialTags}
-      actions={actions}
+      actions={{
+        create: createTagGovernadorAction,
+        update: updateTagGovernadorAction,
+        remove: deleteTagGovernadorAction,
+      }}
       entityName='governador'
       searchPlaceholder='Buscar tags de governador...'
     />
