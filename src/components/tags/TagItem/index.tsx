@@ -24,7 +24,7 @@ export default function TagItem<T extends BaseTagFromApi>({
         aria-label={`Editar tag ${tag.nome}`}
         className={cn(
           'cursor-pointer h-full rounded-r-none rounded-l-[14px] px-2 pr-1 font-medium',
-          'hover:bg-transparent',
+          'hover:bg-transparent dark:bg-transparent dark:hover:bg-transparentdark:bg-transparent dark:hover:bg-transparent',
         )}
       >
         {tag.nome}
@@ -40,7 +40,7 @@ export default function TagItem<T extends BaseTagFromApi>({
           aria-label={`Excluir tag ${tag.nome}`}
           className={cn(
             'text-highlight cursor-pointer size-8 rounded-full',
-            'hover:bg-transparent hover:text-highlight-hover',
+            'hover:bg-transparent hover:text-highlight-hover dark:bg-transparent dark:hover:bg-transparentdark:bg-transparent dark:hover:bg-transparent',
           )}
         >
           <Trash2Icon className='size-4 mr-1' />
