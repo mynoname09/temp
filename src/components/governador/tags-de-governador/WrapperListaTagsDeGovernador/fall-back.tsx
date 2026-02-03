@@ -1,4 +1,5 @@
-import { GerenciadorTagsShell, ListaTagsSkeleton } from '@/components/tags';
+import { GerenciadorTagsShell } from "@/components/tags/GerenciadorTags/gerenciador-shell";
+import ListaTagsSkeleton from "@/components/tags/ListaTags/skeleton-lista-tags";
 
 export function TagsLoadingFallback() {
   return (

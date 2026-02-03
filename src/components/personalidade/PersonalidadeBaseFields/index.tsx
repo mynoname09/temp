@@ -18,7 +18,7 @@ import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-
 import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
 import { RequiredLabel } from '@/components/ui/form/required-label';
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
-import { TagSelector } from '@/components/tags';
+import { TagSelector } from '@/components/tags/TagSelector';
 
 interface PersonalidadeBaseFieldsProps {
   form: UseFormReturn<PersonalidadeBaseFormValues>;

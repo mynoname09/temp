@@ -30,7 +30,7 @@ export default function MarkdownView({ markdown }: MarkdownViewProps) {
 
             return (
               <div className='overflow-x-auto'>
-                <table className='w-full min-w-[600px]' {...props} />
+                <table className='w-full min-w-150' {...props} />
               </div>
             );
           },

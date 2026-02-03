@@ -33,7 +33,7 @@ export type GerenciadorTagsProps<
  */
 
 export default function GerenciadorTags<
-  T extends BaseTagFromApi,
+  TFromApi extends BaseTagFromApi,
   TCreateTagDto,
   TUpdateTagDto,
 >({
@@ -41,7 +41,7 @@ export default function GerenciadorTags<
   actions,
   entityName,
   searchPlaceholder = 'Buscar tags...',
-}: GerenciadorTagsProps<T, TCreateTagDto, TUpdateTagDto>) {
+}: GerenciadorTagsProps<TFromApi, TCreateTagDto, TUpdateTagDto>) {
   // Utiliza o hook customizado para toda a lógica de estado e operações
   const {
     filteredTags,

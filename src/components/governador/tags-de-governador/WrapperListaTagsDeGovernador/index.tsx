@@ -4,14 +4,22 @@ import {
   updateTagGovernadorAction,
 } from '@/app/actions/governador/tag-governador.actions';
 import GerenciadorTags from '@/components/tags/GerenciadorTags';
-import { TagDeGovernadorFromApi } from '@/features/tags/governador/tag-governador.schema';
+import {
+  CreateTagDeGovernadorDto,
+  TagDeGovernadorFromApi,
+  UpdateTagDeGovernadorDto,
+} from '@/features/tags/governador/tag-governador.schema';
 import { getListaTagsDeGovernador } from '@/features/tags/governador/tag-governador.service';
 
 export default async function WrapperListaTagsDeGovernador() {
   const initialTags = await getListaTagsDeGovernador();
 
   return (
-    <GerenciadorTags<TagDeGovernadorFromApi>
+    <GerenciadorTags<
+      TagDeGovernadorFromApi,
+      CreateTagDeGovernadorDto,
+      UpdateTagDeGovernadorDto
+    >
       initialTags={initialTags}
       actions={{
         create: createTagGovernadorAction,
