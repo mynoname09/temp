@@ -31,6 +31,10 @@ export function TagFormModal<T extends BaseTagFromApi>({
     ? 'Altere o nome da tag abaixo.'
     : `Adicione uma nova tag de ${entityName}.`;
 
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
