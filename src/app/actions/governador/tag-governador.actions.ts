@@ -6,11 +6,16 @@ import {
   updateTagDeGovernador,
   removeTagDeGovernador,
 } from '@/features/tags/governador/tag-governador.service';
-import { CreateTagDeGovernadorDto, UpdateTagDeGovernadorDto } from '@/features/tags/governador/tag-governador.schema';
+import {
+  CreateTagDeGovernadorDto,
+  UpdateTagDeGovernadorDto,
+} from '@/features/tags/governador/tag-governador.schema';
 
 // TODO: RESOLVER NA FEATURE DE GOVERNADOR
 
-export async function createTagGovernadorAction(data: CreateTagDeGovernadorDto) {
+export async function createTagGovernadorAction(
+  data: CreateTagDeGovernadorDto,
+) {
   const newTag = await createTagDeGovernador(data);
   revalidatePath('/governador/tags');
   return newTag;
