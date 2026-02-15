@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import { FiltroFormSchema } from '@/lib/pesquisa/pesquisa.schemas';
 import BarraDePesquisa from '@/components/BarraDePesquisa';
 import { getListaPersonalidades } from '@/features/personalidade/base/services/personalidade.service';

@@ -4,22 +4,31 @@ import { toast } from 'sonner';
 import { PersonalidadeForm } from '@/components/personalidade/forms/FormPersonalidade';
 import { createPersonalidadeAction } from '@/app/actions/personalidade/create-personalidade.action';
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
+import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
+import { useRouter } from 'next/navigation';
 
 export default function FormCriarPersonalidade({
   tagsDisponiveis,
 }: {
   tagsDisponiveis: TagDePersonalidadeFromApi[];
 }) {
-  //TODO: TIPAR e adicionar redirecionamento após criação
-  // A função é criada AQUI, no cliente
-  async function onSubmit(data: any) {
-    console.log(data);
-    try {
-      await createPersonalidadeAction(data); // Chama a Server Action
-      toast.success('Criado com sucesso');
-    } catch (err) {
-      console.log(err);
-      toast.error('Erro ao criar');
+  const router = useRouter();
+
+  async function onSubmit(data: PersonalidadeBaseFormValues) {
+    const result = await createPersonalidadeAction(data);
+
+    if (!result?.success) {
+      toast.error(result?.errors?.join('\n') ?? 'Erro ao criar personalidade');
+      return;
+    }
+
+    toast.success('Personalidade criada com sucesso!');
+
+    const responseData = result.data;
+    if (responseData && !Array.isArray(responseData)) {
+      router.push(`/personalidade/${responseData.slug}`);
+    } else {
+      router.push('/personalidade');
     }
   }
 

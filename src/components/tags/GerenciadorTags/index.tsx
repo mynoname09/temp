@@ -1,7 +1,7 @@
 'use client';
 
 import InputPesquisaSimples from '@/components/BarraDePesquisa/InputPesquisaSimples';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import ListaTags from '../ListaTags';
 import {
   useGerenciadorTags,

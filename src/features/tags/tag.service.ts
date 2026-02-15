@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
-import { BaseTagFromApi, TagServiceConfig } from './tag.types';
+import { BaseTagFromApi, TagServiceConfig } from './@types/tag.types';
 
 export function createTagService<
   TCreateDto,

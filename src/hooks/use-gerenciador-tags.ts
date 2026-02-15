@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import { toast } from 'sonner';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import { ConfirmDialog } from '@/components/Dialog';
 
 export type TagActions<T extends BaseTagFromApi, TCreateDto, TUpdateDto> = {

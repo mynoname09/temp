@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import FormTag, { FormTagData } from '../FormTag';
 
 type TagFormModalProps<T extends BaseTagFromApi> = {

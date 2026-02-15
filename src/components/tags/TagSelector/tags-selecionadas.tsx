@@ -1,4 +1,4 @@
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import { cn } from '@/lib/utils';
 import { XIcon } from 'lucide-react';
 

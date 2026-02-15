@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import { SelectedTagsDisplay } from './tags-selecionadas';
 
 export interface TagSelectorProps<TTag extends BaseTagFromApi> {

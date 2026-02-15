@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import { FiltroFormSchema } from '@/lib/pesquisa/pesquisa.schemas';
 import InputPesquisa from './InputPesquisa';
 import ToggleFiltrosBtn from './ToggleFiltroBtn';

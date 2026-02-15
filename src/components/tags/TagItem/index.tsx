@@ -2,7 +2,7 @@
 
 import { Trash2Icon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import { cn } from '@/lib/utils';
 
 export type TagItemProps<T extends BaseTagFromApi> = {

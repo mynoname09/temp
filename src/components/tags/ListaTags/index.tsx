@@ -1,6 +1,6 @@
 'use client';
 
-import { BaseTagFromApi } from '@/features/tags/tag.types';
+import { BaseTagFromApi } from '@/features/tags/@types/tag.types';
 import TagItem from '../TagItem';
 
 export type ListaTagsProps<T extends BaseTagFromApi> = {

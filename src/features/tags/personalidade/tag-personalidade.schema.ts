@@ -1,5 +1,5 @@
 import z from 'zod';
-import { BaseTagFromApi } from '../tag.types';
+import { BaseTagFromApi } from '../@types/tag.types';
 import { createTagBaseSchema, updateTagBaseSchema } from '../tag.schema';
 
 export type TagDePersonalidadeFromApi = BaseTagFromApi;
