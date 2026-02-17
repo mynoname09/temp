@@ -17,8 +17,6 @@ export default function CardPersonalidade({
 }: CardPersonalidadeProps) {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  
-
   return (
     <div
       key={personalidade.id}
