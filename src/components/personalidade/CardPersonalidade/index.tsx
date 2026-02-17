@@ -8,14 +8,16 @@ import ModalPersonalidade from '../ModalPersonalidade';
 
 type CardPersonalidadeProps = {
   personalidade: ListaPersonalidadesFromApi;
+  onItemDeleted: (id: string) => void;
 };
-
-// TODO: Limitar tags expostas e obras
 
 export default function CardPersonalidade({
   personalidade,
+  onItemDeleted,
 }: CardPersonalidadeProps) {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  
 
   return (
     <div
@@ -66,6 +68,7 @@ export default function CardPersonalidade({
           personalidade={personalidade}
           isOpen={modalIsOpen}
           onClose={() => setModalIsOpen(false)}
+          onDeleteSuccess={() => onItemDeleted(personalidade.id)}
         />
       )}
     </div>

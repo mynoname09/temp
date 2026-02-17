@@ -1,3 +1,5 @@
+'use client';
+
 import { PersonalidadeDeListaFromApi } from '@/features/personalidade/base/personalidade.schema';
 import { Modal, ModalProps } from '../../Modal';
 import { ModalBody } from '../../Modal/modal-body';
@@ -17,15 +19,19 @@ import {
 } from '@/utils/transform-date';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { handleDelete } from './handle-delete';
+import { handleUpdate } from './handle-update';
 
 type ModalPersonalidadeProps = {
   personalidade: PersonalidadeDeListaFromApi;
+  onDeleteSuccess: () => void;
 } & ModalProps;
 
 export default function ModalPersonalidade({
   personalidade,
   isOpen,
   onClose,
+  onDeleteSuccess,
 }: ModalPersonalidadeProps) {
   const [mostrarTodasObras, setMostrarTodasObras] = useState(false);
 
@@ -179,7 +185,42 @@ export default function ModalPersonalidade({
             {personalidade.contribuicao_cultural}
           </p>
         </div>
+
+        {/* Edita/Deleta */}
       </ModalBody>
+
+      <div className='flex justify-end gap-3 p-6 border-t bg-muted/30 rounded-md'>
+        <button
+          onClick={() =>
+            handleDelete(
+              personalidade.slug,
+              personalidade.nome,
+              onClose,
+              onDeleteSuccess,
+            )
+          }
+          className={cn(
+            'px-4 py-2 text-sm font-medium ',
+            'bg-accent hover:bg-accent/50 text-primary',
+            'rounded-md transition-colors',
+            'cursor-pointer',
+          )}
+        >
+          Excluir Personalidade
+        </button>
+
+        <button
+          onClick={() => handleUpdate(personalidade.slug)}
+          className={cn(
+            'px-4 py-2 text-sm font-medium ',
+            'bg-primary text-primary-foreground hover:bg-primary/90',
+            'rounded-md transition-colors',
+            'cursor-pointer',
+          )}
+        >
+          Editar Informações
+        </button>
+      </div>
     </Modal>
   );
 }
