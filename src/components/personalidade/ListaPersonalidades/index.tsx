@@ -11,6 +11,7 @@ type ListaPersonalidadesProps = {
   hasMore: boolean;
   onLoadMoreAction: () => void;
   isLoadingMore: boolean;
+  onItemDeletedAction: (id: string) => void;
 };
 
 export default function ListaPersonalidades({
@@ -18,6 +19,7 @@ export default function ListaPersonalidades({
   hasMore,
   onLoadMoreAction,
   isLoadingMore,
+  onItemDeletedAction: onItemDeleted,
 }: ListaPersonalidadesProps) {
   const { ref, inView } = useInView({
     rootMargin: '800px',
@@ -41,7 +43,11 @@ export default function ListaPersonalidades({
     <div className='flex flex-col gap-6'>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
         {personalidades.map(item => (
-          <CardPersonalidade key={item.id} personalidade={item} />
+          <CardPersonalidade
+            key={item.id}
+            personalidade={item}
+            onItemDeleted={onItemDeleted}
+          />
         ))}
 
         {hasMore && (

@@ -119,6 +119,16 @@ export default function WrapperListaPersonalidades({
 
   const isLoading = !resultados || isPending;
 
+  const handleItemDeleted = (idDaPersonalidade: string) => {
+  setResultados((prev) => {
+    if (!prev) return prev;
+    return {
+      ...prev,
+      data: prev.data.filter((item) => item.id !== idDaPersonalidade),
+    };
+  });
+};
+
   return (
     <>
       <BarraDePesquisa
@@ -138,6 +148,7 @@ export default function WrapperListaPersonalidades({
                 onLoadMoreAction={handleLoadMore}
                 isLoadingMore={isLoadingMore}
                 hasMore={hasMore}
+                onItemDeletedAction={handleItemDeleted}
               />
             )
           )}
