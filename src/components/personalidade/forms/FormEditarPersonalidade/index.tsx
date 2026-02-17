@@ -20,7 +20,7 @@ export default function FormEditarPersonalidade({
   const router = useRouter();
 
   if (!personalidade) {
-    return <div className="text-center p-4">Personalidade não encontrada.</div>; 
+    return <div className='text-center p-4'>Personalidade não encontrada.</div>;
   }
 
   const defaultValuesFormatados: Partial<PersonalidadeBaseFormValues> = {

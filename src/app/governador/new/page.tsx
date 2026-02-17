@@ -8,10 +8,7 @@ export default async function CadastroGovernador() {
     await getListaTagsDePersonalidade();
 
   return (
-    <FormContainer
-      titulo='Novo Governador'
-      descricao='Cadastre um governador.'
-    >
+    <FormContainer titulo='Novo Governador' descricao='Cadastre um governador.'>
       <FormCriarGovernador tagsDisponiveis={tagsDePersonalidadeDisponiveis} />
     </FormContainer>
   );
