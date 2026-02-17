@@ -7,11 +7,13 @@ import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-per
 import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
 import { useRouter } from 'next/navigation';
 
+type FormCriarPersonalidadeProps = {
+  tagsDisponiveis: TagDePersonalidadeFromApi[];
+};
+
 export default function FormCriarPersonalidade({
   tagsDisponiveis,
-}: {
-  tagsDisponiveis: TagDePersonalidadeFromApi[];
-}) {
+}: FormCriarPersonalidadeProps) {
   const router = useRouter();
 
   async function onSubmit(data: PersonalidadeBaseFormValues) {

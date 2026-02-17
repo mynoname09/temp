@@ -82,7 +82,7 @@ export function PersonalidadeForm({
               'md:w-auto',
             )}
           >
-            Cancelar
+            Voltar
           </Button>
 
           <Button

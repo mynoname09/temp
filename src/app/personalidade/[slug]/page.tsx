@@ -1,5 +1,6 @@
-import LayoutFormCadastro from '@/components/LayoutFormCadastro';
+import FormContainer from '@/components/LayoutFormCadastro';
 import FormEditarPersonalidade from '@/components/personalidade/forms/FormEditarPersonalidade';
+import { getPersonalidadeBySlug } from '@/features/personalidade/base/services/get-personalidade-slug';
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
 import { getListaTagsDePersonalidade } from '@/features/tags/personalidade/tag-personalidade.service';
 import { Metadata } from 'next';
@@ -20,12 +21,17 @@ export default async function PersonalidadeSlugPage({
   const tagsDisponiveis: TagDePersonalidadeFromApi[] =
     await getListaTagsDePersonalidade();
 
+  const personalidade = await getPersonalidadeBySlug(slug);
+
   return (
-    <LayoutFormCadastro
+    <FormContainer
       titulo='Editar Personalidade'
       descricao='Edite uma personalidade geral (sem cargo político ou artístico vinculado).'
     >
-      <FormEditarPersonalidade tagsDisponiveis={tagsDisponiveis} />
-    </LayoutFormCadastro>
+      <FormEditarPersonalidade
+        tagsDisponiveis={tagsDisponiveis}
+        personalidade={personalidade}
+      />
+    </FormContainer>
   );
 }

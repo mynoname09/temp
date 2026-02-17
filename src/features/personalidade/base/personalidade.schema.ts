@@ -29,7 +29,7 @@ export type PersonalidadeDeListaFromApi = z.infer<
 >;
 
 export const queryPersonalidadeSchema = z.object({
-  termo: z.string().nullable().optional(),
+  searchTerm: z.string().nullable().optional(),
   id_tags_de_personalidade: z.array(z.string()).optional().nullable(),
   cursor: z.string().nullable().optional(),
 });

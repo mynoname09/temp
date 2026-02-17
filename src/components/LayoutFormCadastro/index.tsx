@@ -1,17 +1,17 @@
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
-type LayoutFormCadastroProps = {
+type FormContainerProps = {
   children: React.ReactNode;
   titulo: string;
   descricao: string;
 };
 
-export default function LayoutFormCadastro({
+export default function FormContainer({
   children,
   titulo,
   descricao,
-}: LayoutFormCadastroProps) {
+}: FormContainerProps) {
   return (
     <div
       className={cn(

@@ -60,7 +60,7 @@ export default function WrapperListaPersonalidades({
       try {
         const dadosRetornados = await getListaPersonalidades(
           {
-            termo: dados.termo,
+            searchTerm: dados.termo,
             id_tags_de_personalidade: dados.id_tags,
           },
           { signal: newController.signal },
@@ -90,7 +90,7 @@ export default function WrapperListaPersonalidades({
 
     try {
       const novosDados = await getListaPersonalidades({
-        termo: filtrosParaBusca.termo,
+        searchTerm: filtrosParaBusca.termo,
         id_tags_de_personalidade: filtrosParaBusca.id_tags,
         cursor: cursorParaBusca,
       });

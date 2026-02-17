@@ -1,10 +1,16 @@
 import { cn } from '@/lib/utils';
 
-export function LayoutGerenciamentoTag({
-  children,
-}: {
+type LayoutGerenciamentoTagProps = {
+  titulo: string;
+  descricao: string;
   children: React.ReactNode;
-}) {
+};
+
+export function WrapperGerenciamentoTags({
+  titulo,
+  descricao,
+  children,
+}: LayoutGerenciamentoTagProps) {
   return (
     <div
       className={cn(
@@ -33,7 +39,7 @@ export function LayoutGerenciamentoTag({
             '2xl:text-3xl',
           )}
         >
-          Tags de Governador
+          {titulo}
         </h1>
         <p
           className={cn(
@@ -43,8 +49,7 @@ export function LayoutGerenciamentoTag({
             'md:text-base',
           )}
         >
-          Crie, busque e gerencie as tags de governador para categorizar os
-          perfis.
+          {descricao}
         </p>
       </div>
       {children}

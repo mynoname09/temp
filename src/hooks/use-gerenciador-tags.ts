@@ -135,7 +135,8 @@ export function useGerenciadorTags<
     async (tag: T) => {
       const confirmed = await ConfirmDialog({
         title: `Excluir tag "${tag.nome}"?`,
-        content: 'Essa ação não pode ser desfeita.',
+        content: `Essa ação não pode ser desfeita. 
+          E irá afetar todas as personalidades associadas a essa tag.`,
       });
 
       if (!confirmed) return;

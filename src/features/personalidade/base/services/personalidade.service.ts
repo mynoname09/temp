@@ -25,7 +25,7 @@ export async function getListaPersonalidades(
   await new Promise(resolve => setTimeout(resolve, 2000));
 
   const params = {
-    nome_personalidade: query?.termo,
+    nome_personalidade: query?.searchTerm,
     limit: 10,
     id_tags_personalidade: tagsString,
     cursor: query?.cursor,
