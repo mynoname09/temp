@@ -62,11 +62,12 @@ export default function ModalPersonalidade({
           <div className='w-full md:w-48 h-48 bg-muted rounded-lg overflow-hidden shrink-0'>
             {personalidade.url_imagem_perfil ? (
               <Image
-                src={personalidade.url_imagem_perfil}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${personalidade.url_imagem_perfil}`}
                 alt={personalidade.nome}
                 width={192}
                 height={192}
                 className='w-full h-full object-cover'
+                unoptimized
               />
             ) : (
               <div className='w-full h-full flex items-center justify-center'>

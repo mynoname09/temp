@@ -46,7 +46,7 @@ export default function ListaPersonalidades({
           <CardPersonalidade
             key={item.id}
             personalidade={item}
-            onItemDeleted={onItemDeleted}
+            onItemDeletedAction={onItemDeleted}
           />
         ))}
 

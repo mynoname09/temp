@@ -8,12 +8,12 @@ import ModalPersonalidade from '../ModalPersonalidade';
 
 type CardPersonalidadeProps = {
   personalidade: ListaPersonalidadesFromApi;
-  onItemDeleted: (id: string) => void;
+  onItemDeletedAction: (id: string) => void;
 };
 
 export default function CardPersonalidade({
   personalidade,
-  onItemDeleted,
+  onItemDeletedAction: onItemDeleted,
 }: CardPersonalidadeProps) {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
@@ -29,9 +29,10 @@ export default function CardPersonalidade({
             <Image
               width={300}
               height={300}
-              src={personalidade.url_imagem_perfil}
+              src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${personalidade.url_imagem_perfil}`}
               alt={personalidade.nome}
               className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
+              unoptimized
             />
           ) : (
             <BookOpenIcon className='w-12 h-12 text-muted-foreground' />
