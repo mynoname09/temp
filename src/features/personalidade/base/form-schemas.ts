@@ -11,10 +11,7 @@ const ACCEPTED_IMAGE_TYPES = [
 
 export const imagemPerfilSchema = z
   .instanceof(File)
-  .refine(
-    file => file.size <= MAX_FILE_SIZE,
-    'Imagem deve ter no máximo 5MB',
-  )
+  .refine(file => file.size <= MAX_FILE_SIZE, 'Imagem deve ter no máximo 5MB')
   .refine(
     file => ACCEPTED_IMAGE_TYPES.includes(file.type),
     'Formato aceito: .jpg, .jpeg, .png ou .webp',
