@@ -5,17 +5,19 @@ import { ActionResult, createActionResult } from '@/lib/@types/action-result';
 import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
 
 /**
- * Action para criar um novo governador
- * @param formData - FormData contendo os dados do governador e imagem de perfil (opcional)
+ * Action para atualizar um governador existente
+ * @param id - ID do governador a ser atualizado
+ * @param formData - FormData contendo os dados atualizados e imagem de perfil (opcional)
  */
-export async function createGovernadorAction(
+export async function updateGovernadorAction(
+  id: string,
   formData: FormData,
 ): Promise<ActionResult<GovernadorFromApi>> {
   let response: ActionResult<GovernadorFromApi>;
 
   try {
-    const responseApi = await apiAcervoPublicoFCJA.post<GovernadorFromApi>(
-      '/governador',
+    const responseApi = await apiAcervoPublicoFCJA.patch<GovernadorFromApi>(
+      `/governador/${id}`,
       formData,
       {
         headers: {
@@ -29,11 +31,10 @@ export async function createGovernadorAction(
       data: responseApi,
     });
   } catch (error) {
-    console.error('Erro ao criar governador:', error);
-
-    return createActionResult({
+    console.error('Erro ao editar governador:', error);
+    response = createActionResult({
       success: false,
-      errors: ['Erro ao criar governador. Tente novamente mais tarde.'],
+      errors: ['Erro ao editar governador'],
     });
   }
 

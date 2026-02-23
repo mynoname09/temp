@@ -5,6 +5,9 @@ import { createRoot } from 'react-dom/client';
 import { Dialog } from './Dialog';
 import { ReactNode } from 'react';
 
+// Re-export Dialog component
+export { Dialog } from './Dialog';
+
 type ConfirmDialogOptions = {
   title?: string;
   content?: ReactNode;

@@ -34,8 +34,8 @@ export interface TagSelectorProps<TTag extends BaseTagFromApi> {
 }
 
 export function TagSelector<TTag extends BaseTagFromApi>({
-  tagsDisponiveis,
-  selectedIds,
+  tagsDisponiveis = [] as TTag[],
+  selectedIds = [],
   onSelectionChange,
   onCreateTag,
   onTagsUpdate,
@@ -44,7 +44,7 @@ export function TagSelector<TTag extends BaseTagFromApi>({
   groupHeading = 'Tags disponíveis',
   disabled = false,
 }: TagSelectorProps<TTag>) {
-  const [tagsLocais, setTagsLocais] = useState<TTag[]>(tagsDisponiveis);
+  const [tagsLocais, setTagsLocais] = useState<TTag[]>(tagsDisponiveis ?? []);
   const [inputValue, setInputValue] = useState('');
   const [openCombobox, setOpenCombobox] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
@@ -60,7 +60,7 @@ export function TagSelector<TTag extends BaseTagFromApi>({
 
       setTagsLocais(novasTags);
       onTagsUpdate?.(novasTags);
-      onSelectionChange([...selectedIds, novaTag.id]);
+      onSelectionChange([...(selectedIds ?? []), novaTag.id]);
       setInputValue('');
     } catch (error) {
       console.error('Erro ao criar tag:', error);
@@ -71,15 +71,17 @@ export function TagSelector<TTag extends BaseTagFromApi>({
   };
 
   const toggleTag = (tagId: string) => {
-    if (selectedIds.includes(tagId)) {
-      onSelectionChange(selectedIds.filter(id => id !== tagId));
+    const currentIds = selectedIds ?? [];
+    if (currentIds.includes(tagId)) {
+      onSelectionChange(currentIds.filter(id => id !== tagId));
     } else {
-      onSelectionChange([...selectedIds, tagId]);
+      onSelectionChange([...currentIds, tagId]);
     }
   };
 
   const removeTag = (tagId: string) => {
-    onSelectionChange(selectedIds.filter(id => id !== tagId));
+    const currentIds = selectedIds ?? [];
+    onSelectionChange(currentIds.filter(id => id !== tagId));
   };
 
   return (
