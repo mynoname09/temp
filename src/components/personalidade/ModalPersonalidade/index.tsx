@@ -35,6 +35,8 @@ export default function ModalPersonalidade({
 }: ModalPersonalidadeProps) {
   const [mostrarTodasObras, setMostrarTodasObras] = useState(false);
 
+  const [imagePerfilError, setImagePerfilError] = useState(false);
+
   const LIMIAR_QUEBRA_LINHA = 4;
   const totalObras = personalidade.obras?.length || 0;
   const temMuitasObras = totalObras > LIMIAR_QUEBRA_LINHA;
@@ -60,7 +62,7 @@ export default function ModalPersonalidade({
         <div className='flex flex-col md:flex-row gap-6 mb-6'>
           {/* Foto */}
           <div className='w-full md:w-48 h-48 bg-muted rounded-lg overflow-hidden shrink-0'>
-            {personalidade.url_imagem_perfil ? (
+            {personalidade.url_imagem_perfil && !imagePerfilError ? (
               <Image
                 src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${personalidade.url_imagem_perfil}`}
                 alt={personalidade.nome}
@@ -68,6 +70,7 @@ export default function ModalPersonalidade({
                 height={192}
                 className='w-full h-full object-cover'
                 unoptimized
+                onError={() => setImagePerfilError(true)}
               />
             ) : (
               <div className='w-full h-full flex items-center justify-center'>

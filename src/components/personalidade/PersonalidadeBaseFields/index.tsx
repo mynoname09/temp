@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
@@ -12,6 +13,7 @@ import {
   FormDescription,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
@@ -23,6 +25,8 @@ import { TagSelector } from '@/components/tags/TagSelector';
 interface PersonalidadeBaseFieldsProps {
   form: UseFormReturn<PersonalidadeBaseFormValues>;
   tagsDisponiveis: TagDePersonalidadeFromApi[];
+  /** URL da imagem de perfil existente (para edição) */
+  urlImagemPerfilExistente?: string | null;
 }
 
 // TODO: RENOMEAR
@@ -52,7 +56,53 @@ function handleTagCreationError(error: unknown): never {
 export function PersonalidadeBaseFields({
   form,
   tagsDisponiveis,
+  urlImagemPerfilExistente,
 }: PersonalidadeBaseFieldsProps) {
+  // Preview local (nova imagem selecionada) ou null
+  const [localPreviewUrl, setLocalPreviewUrl] = useState<string | null>(null);
+  // Controla se a imagem existente foi removida
+  const [imagemExistenteRemovida, setImagemExistenteRemovida] = useState(false);
+  const inputFileRef = useRef<HTMLInputElement>(null);
+
+  // URL da imagem para exibir: nova imagem local > imagem existente (se não removida)
+  const imagemUrlExistente = urlImagemPerfilExistente
+    ? `${process.env.NEXT_PUBLIC_IMAGE_SERVER_URL}${urlImagemPerfilExistente}`
+    : null;
+  const previewUrl = localPreviewUrl || (!imagemExistenteRemovida ? imagemUrlExistente : null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Atualiza o form
+      form.setValue('imagemPerfil', file, { shouldValidate: true });
+      // Reseta flag de remoção já que está adicionando nova imagem
+      form.setValue('removerImagemPerfil', false);
+
+      // Cria preview local
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLocalPreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+
+      // Se tinha imagem existente removida, reseta o estado
+      setImagemExistenteRemovida(false);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    form.setValue('imagemPerfil', null);
+    setLocalPreviewUrl(null);
+    setImagemExistenteRemovida(true);
+    // Setar flag para remover imagem no backend (se tinha imagem existente)
+    if (urlImagemPerfilExistente) {
+      form.setValue('removerImagemPerfil', true);
+    }
+    if (inputFileRef.current) {
+      inputFileRef.current.value = '';
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -62,6 +112,72 @@ export function PersonalidadeBaseFields({
         '2xl:gap-8',
       )}
     >
+      {/* Imagem de Perfil */}
+      <div className={cn('col-span-1', 'md:col-span-2')}>
+        <FormField
+          control={form.control}
+          name='imagemPerfil'
+          render={({ field: { onChange: _onChange, value: _value, ref: _ref, ...field } }) => (
+            <FormItem>
+              <FormLabel>Foto de Perfil</FormLabel>
+              <FormDescription className='text-sm'>
+                Formatos aceitos: JPG, JPEG, PNG ou WEBP. Máximo 5MB.
+              </FormDescription>
+              <FormControl>
+                <div className='flex flex-col gap-4 sm:flex-row sm:items-start'>
+                  {/* Preview da imagem */}
+                  <div
+                    className={cn(
+                      'relative w-32 h-32 rounded-lg border-2 border-dashed border-muted-foreground/25 flex items-center justify-center overflow-hidden bg-muted/50',
+                      previewUrl && 'border-solid border-primary/50',
+                    )}
+                  >
+                    {previewUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={previewUrl}
+                        alt='Preview'
+                        className='w-full h-full object-cover'
+                      />
+                    ) : (
+                      <span className='text-muted-foreground text-xs text-center px-2'>
+                        Sem imagem
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Controles */}
+                  <div className='flex flex-col gap-2'>
+                    <Input
+                      type='file'
+                      accept='image/jpeg,image/jpg,image/png,image/webp'
+                      ref={inputFileRef}
+                      onChange={handleImageChange}
+                      className='w-full max-w-xs cursor-pointer'
+                      name={field.name}
+                      onBlur={field.onBlur}
+                      disabled={field.disabled}
+                    />
+                    {previewUrl && (
+                      <Button
+                        type='button'
+                        variant='outline'
+                        size='sm'
+                        onClick={handleRemoveImage}
+                        className='w-fit cursor-pointer'
+                      >
+                        Remover imagem
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
       <FormField
         control={form.control}
         name='nome'

@@ -7,6 +7,7 @@ import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-
 import { BasePersonalidadeFromApi } from '@/features/personalidade/base/personalidade.type';
 import { updatePersonalidadeAction } from '@/app/actions/personalidade/update-personalidade.acton';
 import { useRouter } from 'next/navigation';
+import { buildPersonalidadeFormData } from '@/utils/form-data-builder';
 
 type FormEditarPersonalidadeProps = {
   tagsDisponiveis: TagDePersonalidadeFromApi[];
@@ -31,9 +32,12 @@ export default function FormEditarPersonalidade({
 
   async function onSubmit(updatedData: PersonalidadeBaseFormValues) {
     try {
+      // Converter dados do formulário para FormData (suporta upload e remoção de arquivo)
+      const formData = buildPersonalidadeFormData(updatedData);
+
       const result = await updatePersonalidadeAction(
         personalidade.slug,
-        updatedData,
+        formData,
       );
 
       if (!result?.success) {
@@ -43,7 +47,7 @@ export default function FormEditarPersonalidade({
         return;
       }
 
-      console.log('Dados a serem enviados para a API:', updatedData);
+      console.log('Dados enviados para a API:', updatedData);
       toast.success('Personalidade editada com sucesso!');
 
       router.refresh();
@@ -59,6 +63,7 @@ export default function FormEditarPersonalidade({
       onSubmit={onSubmit}
       defaultValues={defaultValuesFormatados}
       submitLabel='Salvar Alterações'
+      urlImagemPerfilExistente={personalidade.url_imagem_perfil}
     />
   );
 }

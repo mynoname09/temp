@@ -6,6 +6,7 @@ import { createPersonalidadeAction } from '@/app/actions/personalidade/create-pe
 import { TagDePersonalidadeFromApi } from '@/features/tags/personalidade/tag-personalidade.schema';
 import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
 import { useRouter } from 'next/navigation';
+import { buildPersonalidadeFormData } from '@/utils/form-data-builder';
 
 type FormCriarPersonalidadeProps = {
   tagsDisponiveis: TagDePersonalidadeFromApi[];
@@ -17,7 +18,10 @@ export default function FormCriarPersonalidade({
   const router = useRouter();
 
   async function onSubmit(data: PersonalidadeBaseFormValues) {
-    const result = await createPersonalidadeAction(data);
+    // Converter dados do formulário para FormData (suporta upload de arquivo)
+    const formData = buildPersonalidadeFormData(data);
+
+    const result = await createPersonalidadeAction(formData);
 
     if (!result?.success) {
       toast.error(result?.errors?.join('\n') ?? 'Erro ao criar personalidade');

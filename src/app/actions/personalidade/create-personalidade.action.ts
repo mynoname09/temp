@@ -1,12 +1,15 @@
 'use server';
 
-import { PersonalidadeBaseFormValues } from '@/features/personalidade/base/form-schemas';
 import { BasePersonalidadeFromApi } from '@/features/personalidade/base/personalidade.type';
 import { ActionResult, createActionResult } from '@/lib/@types/action-result';
 import { apiAcervoPublicoFCJA } from '@/utils/api/acervoPublicoFCJA.api';
 
+/**
+ * Action para criar uma nova personalidade
+ * @param formData - FormData contendo os dados da personalidade e imagem de perfil (opcional)
+ */
 export async function createPersonalidadeAction(
-  data: PersonalidadeBaseFormValues,
+  formData: FormData,
 ): Promise<ActionResult<BasePersonalidadeFromApi>> {
   let response: ActionResult<BasePersonalidadeFromApi>;
 
@@ -14,7 +17,12 @@ export async function createPersonalidadeAction(
     const responseApi =
       await apiAcervoPublicoFCJA.post<BasePersonalidadeFromApi>(
         '/personalidade/new',
-        data,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       );
 
     response = createActionResult({

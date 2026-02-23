@@ -36,9 +36,9 @@ export const personalidadeBaseFormSchema = z.object({
       /^[^,]+,\s*.+$/,
       'Use o formato: Cidade, Estado (ex: Recife, Pernambuco)',
     )
-    .optional(),
+    .optional().nullable(),
   resumo_biografico: z.string().min(10, 'O resumo deve ser mais detalhado'),
-  contribuicao_cultural: z.string().optional(),
+  contribuicao_cultural: z.string().optional().nullable(),
   // url_imagem_perfil: z.url().nullable().optional().or(z.literal('')),
   // Arquivo de imagem de perfil (para upload)
   imagemPerfil: imagemPerfilSchema,

@@ -18,6 +18,8 @@ interface PersonalidadeFormProps {
   defaultValues?: Partial<PersonalidadeBaseFormValues>; // Opcional para Create, Obrigatório para Edit
   onSubmit: (data: PersonalidadeBaseFormValues) => Promise<void>; // A lógica vem de fora
   submitLabel?: string;
+  /** URL da imagem de perfil existente (para edição) */
+  urlImagemPerfilExistente?: string | null;
 }
 
 export function PersonalidadeForm({
@@ -25,6 +27,7 @@ export function PersonalidadeForm({
   defaultValues,
   onSubmit,
   submitLabel = 'Salvar',
+  urlImagemPerfilExistente,
 }: PersonalidadeFormProps) {
   const router = useRouter();
 
@@ -58,6 +61,7 @@ export function PersonalidadeForm({
         <PersonalidadeBaseFields
           form={form}
           tagsDisponiveis={tagsDisponiveis}
+          urlImagemPerfilExistente={urlImagemPerfilExistente}
         />
 
         <div

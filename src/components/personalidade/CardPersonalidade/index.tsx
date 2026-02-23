@@ -17,6 +17,8 @@ export default function CardPersonalidade({
 }: CardPersonalidadeProps) {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
+  const [imagePerfilError, setImagePerfilError] = useState(false);
+
   return (
     <div
       key={personalidade.id}
@@ -25,7 +27,7 @@ export default function CardPersonalidade({
     >
       <div className='aspect-square overflow-hidden'>
         <div className='w-full h-full bg-muted flex items-center justify-center'>
-          {personalidade.url_imagem_perfil ? (
+          {personalidade.url_imagem_perfil && !imagePerfilError ? (
             <Image
               width={300}
               height={300}
@@ -33,6 +35,7 @@ export default function CardPersonalidade({
               alt={personalidade.nome}
               className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
               unoptimized
+              onError={() => setImagePerfilError(true)}
             />
           ) : (
             <BookOpenIcon className='w-12 h-12 text-muted-foreground' />
